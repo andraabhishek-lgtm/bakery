@@ -1,5 +1,5 @@
 /* ============================================================
-   La Farine — Artisan Bakery Theme
+   Stackly — Artisan Bakery Theme
    ============================================================ */
 
 /* --- CSS Custom Properties --- */
@@ -218,6 +218,25 @@ p { color: var(--text-mid); }
 }
 .logo--light .logo-name { color: var(--accent-light); }
 .logo--light .logo-tagline { color: rgba(255,255,255,0.65); }
+
+/* Logo group — wraps logo + side badge as one flex unit */
+.logo-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.logo-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-left: 14px;
+  margin-left: 10px;
+  border-left: 1.5px solid var(--border);
+  line-height: 1.35;
+}
+.logo-badge span { font-size: 0.7rem; color: var(--text-light); white-space: nowrap; }
+.logo-badge span:first-child { font-size: 0.73rem; font-weight: 700; color: var(--text-mid); }
+@media (max-width: 900px) { .logo-badge { display: none; } }
 
 /* Nav */
 .nav {

@@ -1,5 +1,5 @@
 /* ============================================================
-   La Farine — Artisan Bakery  |  Main Script
+   Stackly — Artisan Bakery  |  Main Script
    ============================================================ */
 
 'use strict';
@@ -490,7 +490,7 @@ function initNewsletter() {
   document.getElementById('newsletterForm')?.addEventListener('submit', e => {
     e.preventDefault();
     const input = e.target.querySelector('input[type="email"]');
-    showToast('You\'re subscribed! Welcome to La Farine. 🎉', 'success');
+    showToast('You\'re subscribed! Welcome to Stackly. 🎉', 'success');
     if (input) input.value = '';
   });
 }
