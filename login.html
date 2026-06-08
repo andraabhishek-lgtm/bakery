@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In | La Farine Artisan Bakery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ── Auth page reset ─────────────────────────────────────── */
+    html, body { height: 100%; }
+    body { background: var(--white); overflow-x: hidden; }
+
+    /* ── Split layout ────────────────────────────────────────── */
+    .auth-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── Form side ───────────────────────────────────────────── */
+    .auth-form-side {
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+      padding: 48px 64px;
+      position: relative;
+      overflow-y: auto;
+    }
+
+    .auth-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 56px;
+    }
+
+    .auth-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-light);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color var(--transition);
+    }
+    .auth-back-link svg { width: 14px; height: 14px; transition: transform var(--transition); }
+    .auth-back-link:hover { color: var(--primary); }
+    .auth-back-link:hover svg { transform: translateX(-3px); }
+
+    .auth-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 400px;
+    }
+
+    /* ── Header copy ─────────────────────────────────────────── */
+    .auth-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .auth-eyebrow::before {
+      content: '';
+      width: 24px; height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .auth-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.9rem, 2.8vw, 2.5rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .auth-headline em { font-style: italic; color: var(--primary); }
+
+    .auth-subline {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      margin-bottom: 36px;
+    }
+    .auth-subline a {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color var(--transition);
+    }
+    .auth-subline a:hover { border-color: var(--primary); }
+
+    /* ── Form elements ───────────────────────────────────────── */
+    .auth-form { width: 100%; }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-mid);
+      margin-bottom: 8px;
+    }
+
+    .field-wrap {
+      position: relative;
+    }
+
+    .field-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      pointer-events: none;
+      width: 17px; height: 17px;
+    }
+
+    .field-input {
+      width: 100%;
+      height: 50px;
+      padding: 0 16px 0 42px;
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.94rem;
+      font-family: 'Lato', sans-serif;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+    }
+    .field-input::placeholder { color: var(--text-xlight); }
+    .field-input:focus {
+      border-color: var(--primary);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(107, 58, 42, 0.1);
+    }
+    .field-input.is-error { border-color: var(--error); }
+    .field-input.is-error:focus { box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.12); }
+
+    .field-error {
+      font-size: 0.76rem;
+      color: var(--error);
+      margin-top: 6px;
+      display: none;
+    }
+    .field-error.show { display: block; }
+
+    /* Password toggle */
+    .pw-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      padding: 4px;
+      color: var(--text-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: color var(--transition);
+    }
+    .pw-toggle:hover { color: var(--primary); }
+    .pw-toggle svg { width: 17px; height: 17px; }
+
+    /* Password field — no left icon */
+    .field-wrap.has-toggle .field-input { padding-right: 44px; }
+
+    /* Row: remember + forgot */
+    .field-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .check-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      color: var(--text-mid);
+      cursor: pointer;
+      user-select: none;
+    }
+    .check-label input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .text-link {
+      font-size: 0.86rem;
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color var(--transition);
+    }
+    .text-link:hover { border-color: var(--primary); }
+
+    /* Submit button — override btn to full width + height */
+    .btn-auth {
+      width: 100%;
+      height: 52px;
+      font-size: 0.96rem;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    /* ── Divider ─────────────────────────────────────────────── */
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: ''; flex: 1;
+      height: 1px; background: var(--border);
+    }
+    .auth-divider span {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-xlight);
+      white-space: nowrap;
+    }
+
+    /* ── Social buttons ──────────────────────────────────────── */
+    .auth-social {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .social-btn {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 700;
+      font-family: 'Lato', sans-serif;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .social-btn:hover {
+      border-color: var(--primary);
+      background: var(--cream);
+      color: var(--primary);
+    }
+    .social-btn svg { width: 19px; height: 19px; flex-shrink: 0; }
+
+    /* ── Bottom sign-up prompt ───────────────────────────────── */
+    .auth-switch {
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      padding-top: 4px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 28px;
+    }
+    .auth-switch a {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color var(--transition);
+    }
+    .auth-switch a:hover { border-color: var(--primary); }
+
+    /* ── Visual side ─────────────────────────────────────────── */
+    .auth-visual-side {
+      position: relative;
+      overflow: hidden;
+      background: var(--primary-dark);
+    }
+
+    .auth-visual-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg,
+          rgba(44, 26, 14, 0.55) 0%,
+          rgba(74, 36, 25, 0.78) 100%),
+        url('images/about_baker.webp') center / cover no-repeat;
+    }
+
+    .auth-visual-inner {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px 52px;
+    }
+
+    /* Logo on visual side */
+    .visual-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .visual-logo-icon { font-size: 1.9rem; }
+    .visual-logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .visual-logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .visual-logo-tagline {
+      font-family: 'Dancing Script', cursive;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    /* Quote block */
+    .visual-quote-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .visual-quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 5.5rem;
+      line-height: 0.7;
+      color: rgba(255, 255, 255, 0.18);
+      margin-bottom: 12px;
+      display: block;
+      user-select: none;
+    }
+
+    .visual-quote-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.92);
+      margin-bottom: 24px;
+    }
+
+    .visual-quote-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .visual-author-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+    }
+    .visual-author-info strong {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+    .visual-author-info span {
+      font-size: 0.76rem;
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .visual-stars {
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-top: 3px;
+    }
+
+    /* Visual footer: product tease */
+    .visual-footer-chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .visual-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50px;
+      padding: 7px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(6px);
+      text-decoration: none;
+      transition: background var(--transition);
+    }
+    .visual-chip:hover { background: rgba(255, 255, 255, 0.18); color: var(--white); }
+
+    /* ── Toast (minimal, for form feedback) ─────────────────── */
+    .login-toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--primary);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      white-space: nowrap;
+      z-index: 9999;
+    }
+    .login-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .login-toast.error { background: var(--error); }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .auth-wrap { grid-template-columns: 1fr; }
+      .auth-visual-side { display: none; }
+      .auth-form-side { padding: 48px 48px; justify-content: flex-start; }
+      .auth-body { max-width: 100%; padding-top: 8px; }
+    }
+
+    @media (max-width: 540px) {
+      .auth-form-side { padding: 36px 24px; }
+      .auth-social { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-wrap">
+
+    <!-- ── Form side ─────────────────────────────────────────── -->
+    <div class="auth-form-side">
+
+      <div class="auth-top-bar">
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+          <span class="logo-icon">🥐</span>
+          <div class="logo-text">
+            <span class="logo-name">La Farine</span>
+            <span class="logo-tagline">Artisan Bakery</span>
+          </div>
+        </a>
+        <!-- Back link -->
+        <a href="index.html" class="auth-back-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to site
+        </a>
+      </div>
+
+      <div class="auth-body">
+
+        <span class="auth-eyebrow">Welcome back</span>
+        <h1 class="auth-headline">Sign in to your<br /><em>account</em></h1>
+        <p class="auth-subline">New to La Farine? <a href="signup.html">Create a free account →</a></p>
+
+        <form class="auth-form" id="loginForm" novalidate>
+
+          <!-- Email -->
+          <div class="field">
+            <label class="field-label" for="loginEmail">Email address</label>
+            <div class="field-wrap">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <input
+                class="field-input"
+                type="email"
+                id="loginEmail"
+                name="email"
+                placeholder="hello@example.com"
+                autocomplete="email"
+              />
+            </div>
+            <span class="field-error" id="emailErr">Please enter a valid email address.</span>
+          </div>
+
+          <!-- Password -->
+          <div class="field">
+            <label class="field-label" for="loginPassword">Password</label>
+            <div class="field-wrap has-toggle">
+              <input
+                class="field-input"
+                style="padding-left:16px"
+                type="password"
+                id="loginPassword"
+                name="password"
+                placeholder="Your password"
+                autocomplete="current-password"
+              />
+              <button type="button" class="pw-toggle" id="pwToggle" aria-label="Show password">
+                <!-- Eye icon (shown when password hidden) -->
+                <svg id="eyeOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+                <!-- Eye-off icon (shown when password visible) -->
+                <svg id="eyeOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+            <span class="field-error" id="passwordErr">Please enter your password.</span>
+          </div>
+
+          <!-- Remember / Forgot -->
+          <div class="field-row">
+            <label class="check-label">
+              <input type="checkbox" id="rememberMe" /> Remember me
+            </label>
+            <a href="#" class="text-link">Forgot password?</a>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn btn-primary btn-auth">
+            Sign In
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="17" height="17">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+
+        </form>
+
+        <!-- Divider -->
+        <div class="auth-divider"><span>or continue with</span></div>
+
+        <!-- Social -->
+        <div class="auth-social">
+          <button class="social-btn" type="button">
+            <!-- Google -->
+            <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Google
+          </button>
+          <button class="social-btn" type="button">
+            <!-- Facebook -->
+            <svg viewBox="0 0 24 24" width="19" height="19"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </button>
+        </div>
+
+        <!-- Switch to sign up -->
+        <div class="auth-switch">
+          Don't have an account? &nbsp;<a href="signup.html">Create one free →</a>
+        </div>
+
+      </div><!-- /auth-body -->
+    </div><!-- /auth-form-side -->
+
+    <!-- ── Visual side ────────────────────────────────────────── -->
+    <div class="auth-visual-side">
+      <div class="auth-visual-bg"></div>
+      <div class="auth-visual-inner">
+
+        <!-- Logo on dark panel -->
+        <a href="index.html" class="visual-logo">
+          <span class="visual-logo-icon">🥐</span>
+          <span class="visual-logo-text">
+            <span class="visual-logo-name">La Farine</span>
+            <span class="visual-logo-tagline">Artisan Bakery</span>
+          </span>
+        </a>
+
+        <!-- Customer quote -->
+        <div class="visual-quote-block">
+          <span class="visual-quote-mark">&ldquo;</span>
+          <p class="visual-quote-text">
+            Fresh bread every morning has been my family's
+            ritual for years. La Farine makes it feel
+            special every single time.
+          </p>
+          <div class="visual-quote-author">
+            <div class="visual-author-avatar">🌸</div>
+            <div class="visual-author-info">
+              <strong>Marie Laurent</strong>
+              <span>Member since 2018</span>
+              <div class="visual-stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category chips -->
+        <div class="visual-footer-chips">
+          <a href="shop.html?cat=cakes" class="visual-chip"><span>🎂</span> Cakes</a>
+          <a href="shop.html?cat=breads" class="visual-chip"><span>🍞</span> Breads</a>
+          <a href="shop.html?cat=pastries" class="visual-chip"><span>🥐</span> Pastries</a>
+          <a href="shop.html?cat=cookies" class="visual-chip"><span>🍪</span> Cookies</a>
+        </div>
+
+      </div>
+    </div><!-- /auth-visual-side -->
+
+  </div><!-- /auth-wrap -->
+
+  <!-- Feedback toast -->
+  <div class="login-toast" id="loginToast"></div>
+
+  <script>
+    /* ── Password show / hide ──────────────────────────────── */
+    const pwInput  = document.getElementById('loginPassword');
+    const pwToggle = document.getElementById('pwToggle');
+    const eyeOpen  = document.getElementById('eyeOpen');
+    const eyeOff   = document.getElementById('eyeOff');
+
+    pwToggle.addEventListener('click', () => {
+      const isHidden = pwInput.type === 'password';
+      pwInput.type   = isHidden ? 'text' : 'password';
+      eyeOpen.style.display = isHidden ? 'none'  : '';
+      eyeOff.style.display  = isHidden ? ''      : 'none';
+    });
+
+    /* ── Form validation + submit ──────────────────────────── */
+    const form       = document.getElementById('loginForm');
+    const emailInput = document.getElementById('loginEmail');
+    const emailErr   = document.getElementById('emailErr');
+    const passwordErr = document.getElementById('passwordErr');
+
+    function setError(input, errEl, message, show) {
+      input.classList.toggle('is-error', show);
+      errEl.textContent = message;
+      errEl.classList.toggle('show', show);
+    }
+
+    function showToast(msg, isError = false) {
+      const t = document.getElementById('loginToast');
+      t.textContent = msg;
+      t.className   = 'login-toast' + (isError ? ' error' : '');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3200);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      const email    = emailInput.value.trim();
+      const password = pwInput.value;
+      const emailRe  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!email || !emailRe.test(email)) {
+        setError(emailInput, emailErr, 'Please enter a valid email address.', true);
+        valid = false;
+      } else {
+        setError(emailInput, emailErr, '', false);
+      }
+
+      if (!password) {
+        setError(pwInput, passwordErr, 'Please enter your password.', true);
+        valid = false;
+      } else if (password.length < 6) {
+        setError(pwInput, passwordErr, 'Password must be at least 6 characters.', true);
+        valid = false;
+      } else {
+        setError(pwInput, passwordErr, '', false);
+      }
+
+      if (!valid) return;
+
+      /* Simulate sign-in — redirect to dashboard */
+      const btn = form.querySelector('[type="submit"]');
+      btn.textContent = 'Signing in…';
+      btn.disabled    = true;
+
+      setTimeout(() => {
+        showToast('Welcome back! Redirecting…');
+        setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
+      }, 800);
+    });
+
+    /* Clear error state on re-type */
+    emailInput.addEventListener('input', () => {
+      if (emailInput.classList.contains('is-error')) {
+        setError(emailInput, emailErr, '', false);
+      }
+    });
+    pwInput.addEventListener('input', () => {
+      if (pwInput.classList.contains('is-error')) {
+        setError(pwInput, passwordErr, '', false);
+      }
+    });
+
+    /* Social buttons — demo only */
+    document.querySelectorAll('.social-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        showToast('Social login coming soon!');
+      });
+    });
+  </script>
+</body>
+</html>

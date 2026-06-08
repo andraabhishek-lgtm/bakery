@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop — La Farine Artisan Bakery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <span>🎂 Free delivery on orders over $50 &nbsp;|&nbsp; Use code <strong>FRESH10</strong> for 10% off your first order</span>
+    <button class="announcement-close" aria-label="Close">&times;</button>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner container">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🥐</span>
+        <div class="logo-text">
+          <span class="logo-name">La Farine</span>
+          <span class="logo-tagline">Artisan Bakery</span>
+        </div>
+      </a>
+
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="shop.html" class="nav-link active">Shop</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link">Categories <span class="chevron">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="shop.html?cat=cakes">Cakes &amp; Tarts</a>
+            <a href="shop.html?cat=breads">Breads &amp; Rolls</a>
+            <a href="shop.html?cat=pastries">Pastries</a>
+            <a href="shop.html?cat=cookies">Cookies</a>
+            <a href="shop.html?cat=cupcakes">Cupcakes</a>
+            <a href="shop.html?cat=seasonal">Seasonal Specials</a>
+          </div>
+        </div>
+        <a href="index.html#about" class="nav-link">Our Story</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn search-btn" id="searchToggle" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" id="cartToggle" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar" id="searchBar">
+      <div class="container">
+        <input type="text" class="search-input" placeholder="Search for croissants, sourdough, cakes..." id="searchInput" />
+        <button class="search-submit">Search</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>Your cart is empty</p>
+        <a href="shop.html" class="btn btn-primary btn-sm">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">$0.00</span>
+      </div>
+      <p class="cart-note">Shipping &amp; taxes calculated at checkout</p>
+      <a href="#" class="btn btn-primary btn-full">Checkout</a>
+      <a href="shop.html" class="btn btn-outline btn-full">Continue Shopping</a>
+    </div>
+  </aside>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span>Shop</span>
+      </div>
+      <h1>Our <em>Baked Goods</em></h1>
+      <p>Fresh from the oven every morning — explore our full range of artisan breads, pastries, cakes and more.</p>
+    </div>
+  </section>
+
+  <!-- Shop Layout -->
+  <main class="shop-main">
+    <div class="container shop-layout">
+
+      <!-- Sidebar Filters -->
+      <aside class="filters-sidebar" id="filtersSidebar">
+        <div class="filters-header">
+          <h3>Filter</h3>
+          <button class="filters-clear" id="filtersClear">Clear all</button>
+        </div>
+
+        <div class="filter-group">
+          <h4>Category</h4>
+          <label class="checkbox-label">
+            <input type="checkbox" name="cat" value="all" checked /> All Items
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="cat" value="cakes" /> Cakes &amp; Tarts
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="cat" value="breads" /> Breads &amp; Rolls
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="cat" value="pastries" /> Pastries
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="cat" value="cookies" /> Cookies
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="cat" value="cupcakes" /> Cupcakes
+          </label>
+        </div>
+
+        <div class="filter-group">
+          <h4>Price Range</h4>
+          <div class="price-range">
+            <input type="range" id="priceRange" min="0" max="100" value="100" class="range-slider" />
+            <div class="price-labels">
+              <span>$0</span>
+              <span id="priceValue">$100</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h4>Dietary</h4>
+          <label class="checkbox-label">
+            <input type="checkbox" name="diet" value="vegan" /> Vegan
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="diet" value="gf" /> Gluten-Free
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="diet" value="nut-free" /> Nut-Free
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="diet" value="dairy-free" /> Dairy-Free
+          </label>
+        </div>
+
+        <div class="filter-group">
+          <h4>Rating</h4>
+          <label class="checkbox-label">
+            <input type="checkbox" name="rating" value="5" /> ★★★★★ (5 stars)
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="rating" value="4" /> ★★★★☆ &amp; up
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="rating" value="3" /> ★★★☆☆ &amp; up
+          </label>
+        </div>
+      </aside>
+
+      <!-- Products Area -->
+      <div class="shop-products">
+        <div class="shop-toolbar">
+          <div class="results-count" id="resultsCount">Showing all 24 products</div>
+          <div class="toolbar-right">
+            <button class="filter-toggle-btn" id="filterToggle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+              Filters
+            </button>
+            <select class="sort-select" id="sortSelect">
+              <option value="default">Sort: Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+              <option value="newest">Newest</option>
+            </select>
+            <div class="view-toggle">
+              <button class="view-btn active" data-view="grid" aria-label="Grid view">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              </button>
+              <button class="view-btn" data-view="list" aria-label="List view">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="products-grid products-grid--shop" id="shopProductsGrid">
+          <!-- Injected by JS -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+          <button class="page-btn page-btn--prev" disabled>← Prev</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn page-btn--next">Next →</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-top container">
+      <div class="footer-brand">
+        <a href="index.html" class="logo logo--light">
+          <span class="logo-icon">🥐</span>
+          <div class="logo-text">
+            <span class="logo-name">La Farine</span>
+            <span class="logo-tagline">Artisan Bakery</span>
+          </div>
+        </a>
+        <p>Handcrafted pastries, breads, and cakes made with love and the finest local ingredients since 2012.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="index.html#about">Our Story</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Allergen Info</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Visit Us</h4>
+        <address>
+          <p>📍 14 Baker Street, London, W1U 3AH</p>
+          <p>📞 <a href="tel:+442071234567">+44 207 123 4567</a></p>
+          <p>✉️ <a href="mailto:hello@lafarine.com">hello@lafarine.com</a></p>
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>&copy; 2026 La Farine Artisan Bakery. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="quickViewModal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
