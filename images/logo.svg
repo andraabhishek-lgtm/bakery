@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 122" fill="none">
+  <!-- Dark espresso rounded box -->
+  <rect width="100" height="122" rx="18" fill="#2C1A0E"/>
+  <!-- Upper golden swirl -->
+  <path d="M 65 56 C 92 46, 92 10, 50 8 C 8 6, 6 44, 32 56"
+        stroke="#F4C96A" stroke-width="17" stroke-linecap="round"/>
+  <!-- Lower warm-brown swirl -->
+  <path d="M 32 66 C 6 78, 8 112, 50 114 C 92 116, 92 80, 65 66"
+        stroke="#9B5B42" stroke-width="17" stroke-linecap="round"/>
+</svg>

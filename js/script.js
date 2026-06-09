@@ -392,22 +392,32 @@ function initShopPage() {
     applyFilters();
   }
 
-  renderShopGrid(PRODUCTS);
+  // Pre-select category from URL ?cat= parameter (e.g. shop.html?cat=cakes)
+  const urlCat = new URLSearchParams(window.location.search).get('cat');
+  if (urlCat && urlCat !== 'all') {
+    const catEl = document.querySelector(`input[name="cat"][value="${urlCat}"]`);
+    if (catEl) {
+      document.querySelectorAll('input[name="cat"]').forEach(el => el.checked = false);
+      catEl.checked = true;
+    }
+  }
+  applyFilters();
 
-  document.querySelectorAll('.filters-sidebar input').forEach(el => {
-    el.addEventListener('change', applyFilters);
-  });
-
+  // Price slider: update label only — filtering happens on Apply
   const priceRange = document.getElementById('priceRange');
   const priceValue = document.getElementById('priceValue');
   if (priceRange && priceValue) {
     priceRange.addEventListener('input', () => {
       priceValue.textContent = `$${priceRange.value}`;
-      applyFilters();
     });
   }
 
+  // Sort select applies immediately (no need to hit Apply for sort)
   document.getElementById('sortSelect')?.addEventListener('change', applyFilters);
+
+  // Apply / Clear buttons
+  document.getElementById('applyFiltersBtn')?.addEventListener('click', applyFilters);
+  document.getElementById('clearFiltersBtn')?.addEventListener('click', resetFilters);
   document.getElementById('filtersClear')?.addEventListener('click', resetFilters);
 
   // View toggle
@@ -453,11 +463,36 @@ function initMenu() {
     nav.classList.toggle('open');
   });
 
-  // Close when a link is clicked
+  // Mobile: toggle the Categories sub-menu instead of following href
+  const dropdownParent  = nav.querySelector('.nav-dropdown');
+  const dropdownTrigger = dropdownParent?.querySelector(':scope > .nav-link');
+  const dropdownMenu    = dropdownParent?.querySelector('.dropdown-menu');
+
+  if (dropdownTrigger && dropdownMenu) {
+    dropdownTrigger.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        dropdownMenu.classList.toggle('mobile-open');
+      }
+    });
+  }
+
+  // Close nav on regular nav-link click (skip the dropdown trigger)
   nav.querySelectorAll('.nav-link').forEach(link => {
+    if (link === dropdownTrigger) return;
     link.addEventListener('click', () => {
       hamburger.classList.remove('open');
       nav.classList.remove('open');
+      dropdownMenu?.classList.remove('mobile-open');
+    });
+  });
+
+  // Close nav when a dropdown item is chosen
+  nav.querySelectorAll('.dropdown-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      nav.classList.remove('open');
+      dropdownMenu?.classList.remove('mobile-open');
     });
   });
 }

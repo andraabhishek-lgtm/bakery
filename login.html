@@ -6,7 +6,7 @@
   <title>Sign In | Stackly Artisan Bakery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  < link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 
   <style>
@@ -340,7 +340,7 @@
       gap: 10px;
       text-decoration: none;
     }
-    .visual-logo-icon { font-size: 1.9rem; }
+    .visual-logo-icon { height: 48px; width: auto; display: block; }
     .visual-logo-text { display: flex; flex-direction: column; line-height: 1.2; }
     .visual-logo-name {
       font-family: 'Playfair Display', serif;
@@ -470,10 +470,108 @@
       .auth-form-side { padding: 48px 48px; justify-content: flex-start; }
       .auth-body { max-width: 100%; padding-top: 8px; }
     }
-
-    @media (max-width: 540px) {
-      .auth-form-side { padding: 36px 24px; }
+    @media (max-width: 600px) {
+      .auth-form-side { padding: 36px 28px; }
+      .auth-top-bar { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 40px; }
+      .auth-back-link { align-self: flex-end; }
+    }
+    @media (max-width: 480px) {
+      .auth-form-side { padding: 28px 20px; }
       .auth-social { grid-template-columns: 1fr; }
+      .field-input { height: 48px; }
+      .btn-auth { height: 48px; font-size: 0.92rem; }
+      .auth-top-bar { margin-bottom: 32px; }
+      .auth-body { padding-top: 4px; }
+      .auth-headline { font-size: 1.75rem; }
+      .role-toggle { margin-bottom: 24px; }
+      .role-btn { height: 38px; font-size: 0.82rem; }
+    }
+    @media (max-width: 375px) {
+      .auth-form-side { padding: 24px 16px; }
+      .auth-headline { font-size: 1.55rem; }
+      .field-input { height: 46px; font-size: 0.88rem; }
+      .btn-auth { height: 46px; font-size: 0.88rem; }
+      .role-btn svg { display: none; }
+    }
+
+    /* ── Role selector ──────────────────────────────────────── */
+    .role-toggle {
+      display: flex;
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      padding: 4px;
+      gap: 0;
+      margin-bottom: 32px;
+      width: 100%;
+    }
+    .role-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      height: 40px;
+      border-radius: 50px;
+      border: none;
+      background: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.22s ease;
+      letter-spacing: 0.03em;
+    }
+    .role-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .role-btn.active {
+      background: var(--white);
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .role-btn.active.staff-active {
+      background: var(--primary-dark);
+      color: var(--white);
+    }
+
+    /* ── Validation enhancements ─────────────────────────────── */
+    /* Reserve error slot — prevents layout shift when error appears */
+    .field-error { display: block !important; visibility: hidden; min-height: 1.15em; line-height: 1.3; }
+    .field-error.show { visibility: visible; }
+
+    /* Success state — green border + check icon via background-image */
+    .field-input.is-success {
+      border-color: var(--success);
+      background-color: var(--white);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234CAF50' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px 16px;
+      padding-right: 40px;
+    }
+    .field-input.is-success:focus {
+      border-color: var(--success);
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.12);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234CAF50' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px 16px;
+    }
+
+    /* Error state — red border + X icon */
+    .field-input.is-error {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E53E3E' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px 16px;
+      padding-right: 40px;
+    }
+
+    /* Password toggle fields — shift status icon left of toggle button */
+    .has-toggle .field-input.is-success,
+    .has-toggle .field-input.is-error {
+      background-position: right 46px center;
+      padding-right: 72px;
     }
   </style>
 </head>
@@ -488,7 +586,7 @@
         <!-- Logo -->
         <div class="logo-group">
           <a href="index.html" class="logo">
-            <span class="logo-icon">🥐</span>
+            <img src="images/logo.webp" class="logo-icon" alt="">
             <div class="logo-text">
               <span class="logo-name">Stackly</span>
               <span class="logo-tagline">Artisan Bakery</span>
@@ -508,9 +606,22 @@
 
       <div class="auth-body">
 
-        <span class="auth-eyebrow">Welcome back</span>
-        <h1 class="auth-headline">Sign in to your<br /><em>account</em></h1>
-        <p class="auth-subline">New to Stackly? <a href="signup.html">Create a free account →</a></p>
+        <!-- Role selector -->
+        <div class="role-toggle" id="roleToggle" role="group" aria-label="Select account type">
+          <button type="button" class="role-btn active" id="roleCustomer" data-role="customer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Customer
+          </button>
+          <button type="button" class="role-btn" id="roleStaff" data-role="staff">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/><rect x="9" y="9" width="6" height="6" rx="1" style="display:none"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+            Staff
+          </button>
+        </div>
+
+        <span class="auth-eyebrow" id="authEyebrow">Welcome back</span>
+        <h1 class="auth-headline" id="authHeadline">Sign in to your<br /><em>account</em></h1>
+        <p class="auth-subline" id="authSubline">New to Stackly? <a href="signup.html">Create a free account →</a></p>
 
         <form class="auth-form" id="loginForm" novalidate>
 
@@ -527,8 +638,12 @@
                 type="email"
                 id="loginEmail"
                 name="email"
-                placeholder="hello@example.com"
+                placeholder="Enter your email address"
                 autocomplete="email"
+                required
+                aria-required="true"
+                aria-describedby="emailErr"
+                aria-invalid="false"
               />
             </div>
             <span class="field-error" id="emailErr">Please enter a valid email address.</span>
@@ -544,8 +659,12 @@
                 type="password"
                 id="loginPassword"
                 name="password"
-                placeholder="Your password"
+                placeholder="Enter your password"
                 autocomplete="current-password"
+                required
+                aria-required="true"
+                aria-describedby="passwordErr"
+                aria-invalid="false"
               />
               <button type="button" class="pw-toggle" id="pwToggle" aria-label="Show password">
                 <!-- Eye icon (shown when password hidden) -->
@@ -612,7 +731,7 @@
 
         <!-- Logo on dark panel -->
         <a href="index.html" class="visual-logo">
-          <span class="visual-logo-icon">🥐</span>
+          <img src="images/logo.webp" class="visual-logo-icon" alt="">
           <span class="visual-logo-text">
             <span class="visual-logo-name">Stackly</span>
             <span class="visual-logo-tagline">Artisan Bakery</span>
@@ -654,6 +773,38 @@
   <div class="login-toast" id="loginToast"></div>
 
   <script>
+    /* ── Role toggle ───────────────────────────────────────── */
+    let currentRole = 'customer';
+
+    const roleCustomerBtn = document.getElementById('roleCustomer');
+    const roleStaffBtn    = document.getElementById('roleStaff');
+    const authEyebrow     = document.getElementById('authEyebrow');
+    const authHeadline    = document.getElementById('authHeadline');
+    const authSubline     = document.getElementById('authSubline');
+
+    function setRole(role) {
+      currentRole = role;
+      const isStaff = role === 'staff';
+
+      roleCustomerBtn.classList.toggle('active', !isStaff);
+      roleCustomerBtn.classList.remove('staff-active');
+      roleStaffBtn.classList.toggle('active', isStaff);
+      roleStaffBtn.classList.toggle('staff-active', isStaff);
+
+      if (isStaff) {
+        authEyebrow.textContent = 'Staff Portal';
+        authHeadline.innerHTML  = 'Sign in to<br /><em>Staff Dashboard</em>';
+        authSubline.innerHTML   = 'For customer accounts, <a href="login.html">switch to Customer</a>.';
+      } else {
+        authEyebrow.textContent = 'Welcome back';
+        authHeadline.innerHTML  = 'Sign in to your<br /><em>account</em>';
+        authSubline.innerHTML   = 'New to Stackly? <a href="signup.html">Create a free account →</a>';
+      }
+    }
+
+    roleCustomerBtn.addEventListener('click', () => setRole('customer'));
+    roleStaffBtn.addEventListener('click',    () => setRole('staff'));
+
     /* ── Password show / hide ──────────────────────────────── */
     const pwInput  = document.getElementById('loginPassword');
     const pwToggle = document.getElementById('pwToggle');
@@ -663,14 +814,14 @@
     pwToggle.addEventListener('click', () => {
       const isHidden = pwInput.type === 'password';
       pwInput.type   = isHidden ? 'text' : 'password';
-      eyeOpen.style.display = isHidden ? 'none'  : '';
-      eyeOff.style.display  = isHidden ? ''      : 'none';
+      eyeOpen.style.display = isHidden ? 'none' : '';
+      eyeOff.style.display  = isHidden ? ''     : 'none';
     });
 
     /* ── Form validation + submit ──────────────────────────── */
-    const form       = document.getElementById('loginForm');
-    const emailInput = document.getElementById('loginEmail');
-    const emailErr   = document.getElementById('emailErr');
+    const form        = document.getElementById('loginForm');
+    const emailInput  = document.getElementById('loginEmail');
+    const emailErr    = document.getElementById('emailErr');
     const passwordErr = document.getElementById('passwordErr');
 
     function setError(input, errEl, message, show) {
@@ -714,34 +865,32 @@
 
       if (!valid) return;
 
-      /* Simulate sign-in — redirect to dashboard */
       const btn = form.querySelector('[type="submit"]');
       btn.textContent = 'Signing in…';
       btn.disabled    = true;
 
       setTimeout(() => {
-        showToast('Welcome back! Redirecting…');
-        setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
+        localStorage.setItem('stackly_user', JSON.stringify({
+          email: email,
+          name: '',
+          role: currentRole
+        }));
+        const dest = currentRole === 'staff' ? 'staff-dashboard.html' : 'dashboard.html';
+        showToast(currentRole === 'staff' ? 'Welcome, staff! Redirecting…' : 'Welcome back! Redirecting…');
+        setTimeout(() => { window.location.href = dest; }, 1000);
       }, 800);
     });
 
-    /* Clear error state on re-type */
+    /* Clear error on re-type */
     emailInput.addEventListener('input', () => {
-      if (emailInput.classList.contains('is-error')) {
-        setError(emailInput, emailErr, '', false);
-      }
+      if (emailInput.classList.contains('is-error')) setError(emailInput, emailErr, '', false);
     });
     pwInput.addEventListener('input', () => {
-      if (pwInput.classList.contains('is-error')) {
-        setError(pwInput, passwordErr, '', false);
-      }
+      if (pwInput.classList.contains('is-error')) setError(pwInput, passwordErr, '', false);
     });
 
-    /* Social buttons — demo only */
     document.querySelectorAll('.social-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        showToast('Social login coming soon!');
-      });
+      btn.addEventListener('click', () => { window.location.href = '404.html'; });
     });
   </script>
 </body>

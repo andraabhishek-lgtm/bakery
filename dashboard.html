@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account | Stackly Artisan Bakery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ── Layout ──────────────────────────────────────────────── */
+    html, body { min-height: 100%; background: var(--cream); }
+    .dash-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+
+    /* ── Sidebar ─────────────────────────────────────────────── */
+    .dash-sidebar {
+      background: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .dash-brand {
+      padding: 28px 28px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .dash-brand a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .dash-brand-img { height: 38px; width: auto; }
+    .dash-brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .dash-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .dash-brand-tag {
+      font-family: 'Dancing Script', cursive;
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+
+    /* User card */
+    .dash-user-card {
+      margin: 20px 20px 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 18px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dash-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+      font-family: 'Lato', sans-serif;
+    }
+    .dash-user-info { overflow: hidden; }
+    .dash-user-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .dash-user-email {
+      font-size: 0.74rem;
+      color: rgba(255,255,255,0.5);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+
+    /* Nav */
+    .dash-nav { padding: 16px 12px; flex: 1; }
+    .dash-nav-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.3);
+      padding: 0 10px;
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+    .dash-nav-label:first-child { margin-top: 0; }
+    .dash-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: all var(--transition);
+      margin-bottom: 2px;
+    }
+    .dash-nav a svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .dash-nav a:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+    .dash-nav a.active { background: var(--primary); color: var(--white); }
+    .dash-nav a.active svg { color: var(--accent-light); }
+
+    .dash-signout {
+      padding: 16px 20px 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .dash-signout a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .dash-signout a svg { width: 16px; height: 16px; }
+    .dash-signout a:hover { color: var(--error); }
+
+    /* ── Main content ────────────────────────────────────────── */
+    .dash-main { padding: 40px 44px; overflow-y: auto; }
+
+    .dash-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .dash-greeting h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.2;
+    }
+    .dash-greeting h1 em { font-style: italic; color: var(--primary); }
+    .dash-greeting p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-top: 6px;
+    }
+    .dash-shop-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 22px;
+      height: 44px;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .dash-shop-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+    /* Stats row */
+    .dash-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 22px 20px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .stat-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .stat-icon.gold  { background: rgba(232,168,56,0.12); }
+    .stat-icon.brown { background: rgba(107,58,42,0.1); }
+    .stat-icon.green { background: rgba(76,175,80,0.1); }
+    .stat-icon.cream { background: var(--cream-dark); }
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--text-light); font-weight: 600; }
+
+    /* Grid: orders + account info */
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    /* Card base */
+    .dash-card {
+      background: var(--white);
+      border-radius: 18px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .dash-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .dash-card-head h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .dash-card-head a {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color var(--transition);
+    }
+    .dash-card-head a:hover { border-color: var(--primary); }
+
+    /* Order list */
+    .order-list { padding: 8px 0; }
+    .order-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border-light);
+      transition: background var(--transition);
+    }
+    .order-item:last-child { border-bottom: none; }
+    .order-item:hover { background: var(--cream); }
+    .order-thumb {
+      width: 46px; height: 46px;
+      border-radius: 10px;
+      background: var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .order-meta { flex: 1; min-width: 0; }
+    .order-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .order-date { font-size: 0.76rem; color: var(--text-light); margin-top: 2px; }
+    .order-price {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      white-space: nowrap;
+    }
+    .order-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 10px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+    .badge-delivered { background: rgba(76,175,80,0.12); color: #2e7d32; }
+    .badge-processing { background: rgba(232,168,56,0.15); color: #a06010; }
+    .badge-transit  { background: rgba(33,150,243,0.12); color: #1565c0; }
+
+    /* Account info card */
+    .acct-rows { padding: 8px 0; }
+    .acct-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 22px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .acct-row:last-child { border-bottom: none; }
+    .acct-row-icon {
+      width: 34px; height: 34px;
+      background: var(--cream);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .acct-row-icon svg { width: 15px; height: 15px; color: var(--primary); }
+    .acct-row-body { flex: 1; min-width: 0; }
+    .acct-row-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-xlight); }
+    .acct-row-val {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .acct-row-edit {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color var(--transition);
+    }
+    .acct-row-edit:hover { border-color: var(--primary); }
+
+    /* Loyalty card */
+    .loyalty-card {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      border-radius: 18px;
+      padding: 28px 24px;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .loyalty-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .loyalty-card::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -20px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .loyalty-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      position: relative; z-index: 1;
+    }
+    .loyalty-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.6);
+    }
+    .loyalty-tier {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--accent);
+      color: var(--text-dark);
+      padding: 3px 12px;
+      border-radius: 50px;
+    }
+    .loyalty-points {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+      position: relative; z-index: 1;
+    }
+    .loyalty-points span { font-size: 1rem; color: rgba(255,255,255,0.6); margin-left: 4px; font-family: 'Lato', sans-serif; }
+    .loyalty-sub {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      margin-top: 6px;
+      margin-bottom: 20px;
+      position: relative; z-index: 1;
+    }
+    .loyalty-bar-wrap {
+      background: rgba(255,255,255,0.12);
+      border-radius: 50px;
+      height: 6px;
+      margin-bottom: 8px;
+      position: relative; z-index: 1;
+    }
+    .loyalty-bar-fill {
+      background: var(--accent);
+      height: 100%;
+      border-radius: 50px;
+      width: 62%;
+    }
+    .loyalty-bar-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.45);
+      position: relative; z-index: 1;
+    }
+
+    /* Quick actions */
+    .dash-quick {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .quick-btn {
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: all var(--transition);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+    .quick-btn:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .quick-btn-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .quick-btn span {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      text-align: center;
+    }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .dash-stats { grid-template-columns: repeat(2, 1fr); }
+      .dash-grid  { grid-template-columns: 1fr; }
+      .dash-quick { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 860px) {
+      .dash-wrap { grid-template-columns: 1fr; }
+      .dash-sidebar { position: relative; height: auto; flex-direction: row; flex-wrap: wrap; }
+      .dash-brand { border-bottom: none; border-right: 1px solid rgba(255,255,255,0.08); padding: 16px 20px; }
+      .dash-user-card { margin: 10px; flex: 1; }
+      .dash-nav { display: flex; flex-direction: row; flex-wrap: wrap; gap: 4px; padding: 10px; width: 100%; }
+      .dash-nav-label { display: none; }
+      .dash-nav a { padding: 8px 12px; font-size: 0.8rem; }
+      .dash-signout { padding: 8px 12px; border-top: none; border-left: 1px solid rgba(255,255,255,0.08); }
+      .dash-main { padding: 24px 20px; }
+    }
+    @media (max-width: 540px) {
+      .dash-stats { grid-template-columns: repeat(2, 1fr); }
+      .dash-quick { grid-template-columns: repeat(2, 1fr); }
+      .dash-main { padding: 20px 16px; }
+    }
+    @media (max-width: 480px) {
+      .dash-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .dash-quick { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .dash-main { padding: 16px 14px; }
+      .dash-topbar { margin-bottom: 24px; }
+      .dash-greeting h1 { font-size: 1.3rem; }
+      .dash-shop-btn { padding: 0 16px; height: 40px; font-size: 0.82rem; }
+      .stat-card { padding: 16px 14px; }
+      .stat-value { font-size: 1.4rem; }
+      .quick-btn { padding: 14px 10px; }
+      .quick-btn-icon { width: 36px; height: 36px; font-size: 1rem; }
+      .quick-btn span { font-size: 0.72rem; }
+      .order-item { padding: 12px 14px; gap: 10px; }
+      .order-thumb { width: 36px; height: 36px; font-size: 1.1rem; }
+      .order-price { display: none; }
+      .dash-card-head { padding: 16px 16px 12px; }
+      .acct-row { padding: 11px 14px; }
+      .loyalty-card { padding: 20px 18px; }
+      .loyalty-points { font-size: 2.2rem; }
+      .dash-brand { padding: 12px 14px; }
+      .dash-user-card { padding: 12px; }
+      .dash-nav a { padding: 7px 10px; font-size: 0.76rem; gap: 6px; }
+      .dash-nav a svg { width: 14px; height: 14px; }
+    }
+    @media (max-width: 375px) {
+      .dash-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .dash-quick { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .stat-card { padding: 12px 12px; }
+      .stat-icon { width: 32px; height: 32px; font-size: 0.9rem; }
+      .stat-value { font-size: 1.25rem; }
+      .stat-label { font-size: 0.7rem; }
+      .dash-main { padding: 14px 12px; }
+      .order-name { font-size: 0.82rem; }
+      .order-badge { font-size: 0.62rem; padding: 2px 7px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="dash-wrap">
+
+  <!-- ── Sidebar ───────────────────────────────────────────── -->
+  <aside class="dash-sidebar">
+
+    <div class="dash-brand">
+      <a href="index.html">
+        <img src="images/logo.webp" class="dash-brand-img" alt="Stackly">
+        <div class="dash-brand-text">
+          <span class="dash-brand-name">Stackly</span>
+          <span class="dash-brand-tag">Artisan Bakery</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="dash-user-card">
+      <div class="dash-avatar" id="sidebarAvatar">?</div>
+      <div class="dash-user-info">
+        <div class="dash-user-name" id="sidebarName">My Account</div>
+        <div class="dash-user-email" id="sidebarEmail">—</div>
+      </div>
+    </div>
+
+    <nav class="dash-nav">
+      <div class="dash-nav-label">Menu</div>
+      <a href="dashboard.html" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Overview
+      </a>
+      <a href="shop.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Shop
+      </a>
+      <a href="404.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/></svg>
+        My Orders
+      </a>
+      <a href="404.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Wishlist
+      </a>
+      <a href="404.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 0 1 8 0v2"/><path d="M18 14v6"/><path d="M15 17h6"/></svg>
+        Refer a Friend
+      </a>
+      <div class="dash-nav-label">Account</div>
+      <a href="404.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Profile
+      </a>
+      <a href="404.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Addresses
+      </a>
+      <a href="404.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Payment Methods
+      </a>
+    </nav>
+
+    <div class="dash-signout">
+      <a href="index.html" id="signOutBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </a>
+    </div>
+
+  </aside>
+
+  <!-- ── Main ──────────────────────────────────────────────── -->
+  <main class="dash-main">
+
+    <!-- Top bar -->
+    <div class="dash-topbar">
+      <div class="dash-greeting">
+        <h1>Welcome back, <em id="greetName">there</em> 👋</h1>
+        <p id="greetEmail">Signed in as —</p>
+      </div>
+      <a href="shop.html" class="dash-shop-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Browse Shop
+      </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="dash-stats">
+      <div class="stat-card">
+        <div class="stat-icon gold">🛒</div>
+        <div class="stat-value">8</div>
+        <div class="stat-label">Total Orders</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon brown">🌾</div>
+        <div class="stat-value">320</div>
+        <div class="stat-label">Loyalty Points</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">💰</div>
+        <div class="stat-value">£248</div>
+        <div class="stat-label">Total Spent</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon cream">❤️</div>
+        <div class="stat-value">5</div>
+        <div class="stat-label">Wishlist Items</div>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="dash-quick">
+      <a href="shop.html" class="quick-btn">
+        <div class="quick-btn-icon">🥐</div>
+        <span>Order Again</span>
+      </a>
+      <a href="shop.html?cat=cakes" class="quick-btn">
+        <div class="quick-btn-icon">🎂</div>
+        <span>Cakes</span>
+      </a>
+      <a href="shop.html?cat=breads" class="quick-btn">
+        <div class="quick-btn-icon">🍞</div>
+        <span>Breads</span>
+      </a>
+      <a href="contact.html" class="quick-btn">
+        <div class="quick-btn-icon">📞</div>
+        <span>Contact Us</span>
+      </a>
+    </div>
+
+    <!-- Orders + Account grid -->
+    <div class="dash-grid">
+
+      <!-- Recent orders -->
+      <div class="dash-card">
+        <div class="dash-card-head">
+          <h3>Recent Orders</h3>
+          <a href="404.html">View all →</a>
+        </div>
+        <div class="order-list">
+          <div class="order-item">
+            <div class="order-thumb">🎂</div>
+            <div class="order-meta">
+              <div class="order-name">Chocolate Fudge Cake</div>
+              <div class="order-date">2 Jun 2026 · Order #1084</div>
+            </div>
+            <div class="order-price">£24.99</div>
+            <span class="order-badge badge-delivered">Delivered</span>
+          </div>
+          <div class="order-item">
+            <div class="order-thumb">🥐</div>
+            <div class="order-meta">
+              <div class="order-name">Butter Croissant × 6</div>
+              <div class="order-date">28 May 2026 · Order #1071</div>
+            </div>
+            <div class="order-price">£14.50</div>
+            <span class="order-badge badge-delivered">Delivered</span>
+          </div>
+          <div class="order-item">
+            <div class="order-thumb">🍞</div>
+            <div class="order-meta">
+              <div class="order-name">Sourdough Loaf + Focaccia</div>
+              <div class="order-date">20 May 2026 · Order #1058</div>
+            </div>
+            <div class="order-price">£18.00</div>
+            <span class="order-badge badge-transit">In Transit</span>
+          </div>
+          <div class="order-item">
+            <div class="order-thumb">🍪</div>
+            <div class="order-meta">
+              <div class="order-name">Cookie Box (Assorted)</div>
+              <div class="order-date">12 May 2026 · Order #1042</div>
+            </div>
+            <div class="order-price">£12.00</div>
+            <span class="order-badge badge-processing">Processing</span>
+          </div>
+          <div class="order-item">
+            <div class="order-thumb">🧁</div>
+            <div class="order-meta">
+              <div class="order-name">Vanilla Cupcakes × 4</div>
+              <div class="order-date">5 May 2026 · Order #1029</div>
+            </div>
+            <div class="order-price">£11.99</div>
+            <span class="order-badge badge-delivered">Delivered</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+
+        <!-- Account info -->
+        <div class="dash-card">
+          <div class="dash-card-head">
+            <h3>Account Details</h3>
+            <a href="404.html">Edit</a>
+          </div>
+          <div class="acct-rows">
+            <div class="acct-row">
+              <div class="acct-row-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="acct-row-body">
+                <div class="acct-row-label">Full Name</div>
+                <div class="acct-row-val" id="acctName">—</div>
+              </div>
+              <a href="404.html" class="acct-row-edit">Edit</a>
+            </div>
+            <div class="acct-row">
+              <div class="acct-row-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="acct-row-body">
+                <div class="acct-row-label">Email Address</div>
+                <div class="acct-row-val" id="acctEmail">—</div>
+              </div>
+              <a href="404.html" class="acct-row-edit">Edit</a>
+            </div>
+            <div class="acct-row">
+              <div class="acct-row-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              </div>
+              <div class="acct-row-body">
+                <div class="acct-row-label">Password</div>
+                <div class="acct-row-val">••••••••</div>
+              </div>
+              <a href="404.html" class="acct-row-edit">Change</a>
+            </div>
+            <div class="acct-row">
+              <div class="acct-row-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="acct-row-body">
+                <div class="acct-row-label">Default Address</div>
+                <div class="acct-row-val">14 Baker Street, London</div>
+              </div>
+              <a href="404.html" class="acct-row-edit">Edit</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loyalty card -->
+        <div class="loyalty-card">
+          <div class="loyalty-top">
+            <span class="loyalty-label">Loyalty Rewards</span>
+            <span class="loyalty-tier">☕ Gold Member</span>
+          </div>
+          <div class="loyalty-points">320 <span>pts</span></div>
+          <div class="loyalty-sub">180 more points to reach Platinum</div>
+          <div class="loyalty-bar-wrap"><div class="loyalty-bar-fill"></div></div>
+          <div class="loyalty-bar-text"><span>0 pts</span><span>500 pts (Platinum)</span></div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  /* ── Load user from localStorage ─────────────────────────── */
+  const raw  = localStorage.getItem('stackly_user');
+  const user = raw ? JSON.parse(raw) : { email: '', name: '' };
+
+  const email    = user.email || '';
+  const fullName = (user.name || '').trim();
+
+  /* Derive display name */
+  const displayName = fullName
+    ? fullName.split(' ')[0]
+    : (email ? email.split('@')[0] : 'there');
+
+  const initials = fullName
+    ? fullName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
+    : (email ? email[0].toUpperCase() : '?');
+
+  /* ── Populate UI ──────────────────────────────────────────── */
+  document.getElementById('greetName').textContent    = displayName;
+  document.getElementById('greetEmail').textContent   = email ? 'Signed in as ' + email : 'Welcome to Stackly';
+  document.getElementById('sidebarName').textContent  = fullName || displayName;
+  document.getElementById('sidebarEmail').textContent = email || '—';
+  document.getElementById('sidebarAvatar').textContent = initials;
+  document.getElementById('acctEmail').textContent    = email || '—';
+  document.getElementById('acctName').textContent     = fullName || '—';
+
+  /* ── Sign out ─────────────────────────────────────────────── */
+  document.getElementById('signOutBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('stackly_user');
+    window.location.href = 'index.html';
+  });
+</script>
+</body>
+</html>

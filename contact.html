@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Stackly Artisan Bakery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Contact Hero ────────────────────────────────────────── */
+    .contact-hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      padding: 128px 0 96px;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-hero::before {
+      content: '';
+      position: absolute;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      top: -200px; right: -80px;
+      pointer-events: none;
+    }
+    .contact-hero::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(232,168,56,0.08);
+      bottom: -100px; left: 10%;
+      pointer-events: none;
+    }
+    .breadcrumb {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color var(--transition); }
+    .breadcrumb a:hover { color: var(--accent-light); }
+    .breadcrumb span { margin: 0 8px; }
+    .contact-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin: 0 0 18px;
+      max-width: 600px;
+    }
+    .contact-hero h1 em { font-style: italic; color: var(--accent-light); }
+    .contact-hero p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 460px;
+      line-height: 1.75;
+    }
+
+    /* ── Info cards (float above hero bottom) ────────────────── */
+    .info-cards-wrap {
+      position: relative;
+      z-index: 2;
+      margin-top: -52px;
+      padding-bottom: 0;
+    }
+    .info-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .info-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .info-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+    .info-card-icon {
+      width: 50px; height: 50px;
+      background: var(--cream-dark);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .info-card-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-light);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .info-card-value {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.55;
+    }
+    .info-card-value a { color: var(--primary); text-decoration: none; }
+    .info-card-value a:hover { text-decoration: underline; }
+
+    /* ── Main contact section ────────────────────────────────── */
+    .contact-main { padding: 80px 0 88px; background: var(--cream); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 52px;
+      align-items: start;
+    }
+
+    /* Form card */
+    .form-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 48px 44px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+    }
+    .form-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .form-card h2 em { font-style: italic; color: var(--primary); }
+    .form-intro { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 36px; }
+
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .cfield { margin-bottom: 20px; }
+    .cfield label {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-mid);
+      margin-bottom: 8px;
+    }
+    .cfield input,
+    .cfield select,
+    .cfield textarea {
+      width: 100%;
+      padding: 13px 16px;
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+      font-family: 'Lato', sans-serif;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+    }
+    .cfield input::placeholder,
+    .cfield textarea::placeholder { color: var(--text-xlight); }
+    .cfield input:focus,
+    .cfield select:focus,
+    .cfield textarea:focus {
+      border-color: var(--primary);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(107,58,42,0.1);
+    }
+    .cfield textarea { min-height: 140px; resize: vertical; }
+    .cfield select {
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239E7C62' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+      background-color: var(--cream);
+      padding-right: 40px;
+    }
+    .form-note {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+    .btn-submit {
+      width: 100%;
+      height: 52px;
+      font-size: 0.96rem;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Right column */
+    .contact-side {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: sticky;
+      top: 96px;
+    }
+
+    /* Map placeholder */
+    .map-box {
+      background: var(--cream-deeper);
+      border-radius: var(--radius-xl);
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      border: 1.5px solid var(--border);
+      text-decoration: none;
+      transition: background var(--transition), transform var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .map-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, rgba(107,58,42,0.04) 0, rgba(107,58,42,0.04) 1px, transparent 1px, transparent 14px);
+    }
+    .map-box:hover { background: var(--cream-dark); transform: translateY(-3px); }
+    .map-pin { font-size: 2.8rem; z-index: 1; }
+    .map-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      z-index: 1;
+      text-align: center;
+    }
+    .map-address { font-size: 0.76rem; color: var(--text-light); z-index: 1; text-align: center; }
+    .map-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--primary);
+      z-index: 1;
+      margin-top: 4px;
+    }
+
+    /* Hours card */
+    .hours-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 28px 28px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .hours-card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .open-pill {
+      font-size: 0.68rem;
+      font-weight: 700;
+      background: #DCFCE7;
+      color: #15803D;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .open-pill::before { content: '●'; font-size: 0.5rem; }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      font-size: 0.86rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .hours-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .hours-day { color: var(--text-mid); font-weight: 700; }
+    .hours-time { color: var(--text-dark); }
+    .hours-closed { color: var(--error); font-size: 0.8rem; }
+
+    /* Social snippets */
+    .social-snippet {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .social-snippet h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+    .social-links-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .social-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .social-chip:hover { opacity: 0.85; transform: translateY(-2px); }
+    .social-chip.ig { background: #E1306C; color: white; }
+    .social-chip.fb { background: #1877F2; color: white; }
+    .social-chip.pt { background: #E60023; color: white; }
+
+    /* ── FAQ section ─────────────────────────────────────────── */
+    .faq-section { padding: 88px 0; background: var(--white); }
+    .faq-list {
+      max-width: 760px;
+      margin: 52px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .faq-item.open { border-color: var(--primary); }
+    .faq-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--white);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      text-align: left;
+      transition: background var(--transition), color var(--transition);
+    }
+    .faq-btn:hover { background: var(--cream); }
+    .faq-item.open .faq-btn { background: var(--cream); color: var(--primary); }
+    .faq-arrow {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      transition: transform var(--transition), color var(--transition);
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--primary); }
+    .faq-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.25s ease;
+      padding: 0 24px;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.78;
+    }
+    .faq-item.open .faq-body { max-height: 400px; padding: 0 24px 22px; }
+
+    /* ── Location section ────────────────────────────────────── */
+    .locations-section { padding: 88px 0; background: var(--cream); }
+    .locations-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 52px;
+    }
+    .location-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .location-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .location-map {
+      height: 180px;
+      background: var(--cream-deeper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      border-bottom: 1px solid var(--border-light);
+      position: relative;
+      overflow: hidden;
+    }
+    .location-map::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, rgba(107,58,42,0.04) 0, rgba(107,58,42,0.04) 1px, transparent 1px, transparent 14px);
+    }
+    .location-map span { z-index: 1; }
+    .location-body { padding: 28px; }
+    .location-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      background: var(--cream-dark);
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-bottom: 12px;
+    }
+    .location-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+    .location-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.86rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .location-detail span:first-child { flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 1000px) {
+      .info-cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-side { position: static; }
+    }
+    @media (max-width: 768px) {
+      .contact-hero { padding: 96px 0 72px; }
+      .info-cards-wrap { margin-top: -40px; }
+      .contact-main { padding: 60px 0; }
+      .faq-section { padding: 60px 0; }
+      .locations-section { padding: 60px 0; }
+    }
+    @media (max-width: 660px) {
+      .info-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .form-row-2 { grid-template-columns: 1fr; }
+      .form-card { padding: 28px 20px; }
+      .locations-grid { grid-template-columns: 1fr; }
+      .faq-btn { padding: 16px 18px; font-size: 0.9rem; }
+    }
+    @media (max-width: 480px) {
+      .contact-hero { padding: 72px 0 52px; }
+      .info-cards-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .info-card { padding: 18px 14px; }
+      .info-cards-wrap { margin-top: -28px; }
+      .form-card { padding: 24px 16px; }
+      .contact-main { padding: 48px 0; }
+      .faq-section { padding: 48px 0; }
+      .faq-list { margin-top: 32px; }
+      .locations-section { padding: 48px 0; }
+      .locations-grid { margin-top: 32px; }
+      .location-body { padding: 20px 18px; }
+      .hours-card { padding: 20px 18px; }
+      .social-snippet { padding: 18px 18px; }
+      .map-box { height: 190px; }
+      .btn-submit { font-size: 0.9rem; height: 48px; }
+    }
+    @media (max-width: 375px) {
+      .info-cards-grid { grid-template-columns: 1fr; gap: 10px; }
+      .info-card { flex-direction: row; gap: 14px; padding: 14px 16px; }
+      .info-card-icon { width: 40px; height: 40px; font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <span>🎂 Free delivery on orders over $50 &nbsp;|&nbsp; Use code <strong>FRESH10</strong> for 10% off your first order</span>
+    <button class="announcement-close" aria-label="Close">&times;</button>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner container">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="logo-group">
+        <a href="index.html" class="logo">
+          <img src="images/logo.webp" class="logo-icon" alt="">
+          <div class="logo-text">
+            <span class="logo-name">Stackly</span>
+            <span class="logo-tagline">Artisan Bakery</span>
+          </div>
+        </a>
+        <div class="logo-badge">
+          <span>Baked fresh daily</span>
+          <span>Est. 2012 · London</span>
+        </div>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="shop.html" class="nav-link">Shop</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link">Categories <span class="chevron">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="shop.html?cat=cakes">Cakes &amp; Tarts</a>
+            <a href="shop.html?cat=breads">Breads &amp; Rolls</a>
+            <a href="shop.html?cat=pastries">Pastries</a>
+            <a href="shop.html?cat=cookies">Cookies</a>
+            <a href="shop.html?cat=cupcakes">Cupcakes</a>
+            <a href="shop.html?cat=seasonal">Seasonal Specials</a>
+          </div>
+        </div>
+        <a href="our-story.html" class="nav-link">Our Story</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn search-btn" id="searchToggle" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" id="cartToggle" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <a href="login.html" class="header-login-btn" aria-label="Sign In">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="btn-label">Sign In</span>
+        </a>
+      </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <div class="container">
+        <input type="text" class="search-input" placeholder="Search for croissants, sourdough, cakes..." id="searchInput" />
+        <button class="search-submit">Search</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>Your cart is empty</p>
+        <a href="shop.html" class="btn btn-primary btn-sm">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+      <p class="cart-note">Shipping &amp; taxes calculated at checkout</p>
+      <a href="#" class="btn btn-primary btn-full">Checkout</a>
+      <a href="shop.html" class="btn btn-outline btn-full">Continue Shopping</a>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- ── Hero ───────────────────────────────────────────────── -->
+    <section class="contact-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a><span>/</span> Contact
+        </nav>
+        <h1>We'd Love to <em>Hear</em><br />From You</h1>
+        <p>Questions about an order, a custom cake enquiry, a wholesale partnership — we're always on the other side of the oven door.</p>
+      </div>
+    </section>
+
+    <!-- ── Info cards ─────────────────────────────────────────── -->
+    <div class="info-cards-wrap">
+      <div class="container">
+        <div class="info-cards-grid">
+          <div class="info-card">
+            <div class="info-card-icon">📞</div>
+            <div>
+              <span class="info-card-label">Phone</span>
+              <div class="info-card-value">
+                <a href="tel:+442071234567">+44 207 123 4567</a><br/>
+                Mon–Fri, 8am–6pm
+              </div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">✉️</div>
+            <div>
+              <span class="info-card-label">Email</span>
+              <div class="info-card-value">
+                <a href="mailto:hello@stackly.com">hello@stackly.com</a><br/>
+                We reply within 24 hours
+              </div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">📍</div>
+            <div>
+              <span class="info-card-label">Visit Us</span>
+              <div class="info-card-value">
+                14 Baker Street<br/>London, W1U 3AH
+              </div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">🕐</div>
+            <div>
+              <span class="info-card-label">Opening Hours</span>
+              <div class="info-card-value">
+                Mon–Fri: 7am – 7pm<br/>
+                Sat–Sun: 8am – 5pm
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Main: Form + Side ──────────────────────────────────── -->
+    <section class="contact-main">
+      <div class="container contact-grid">
+
+        <!-- Contact Form -->
+        <div class="form-card">
+          <h2>Send Us a <em>Message</em></h2>
+          <p class="form-intro">Fill in the form and we'll get back to you within one business day. For urgent orders please call us directly.</p>
+
+          <form id="contactForm" novalidate>
+            <div class="form-row-2">
+              <div class="cfield">
+                <label for="cfName">First Name</label>
+                <input type="text" id="cfName" placeholder="Sophie" autocomplete="given-name" />
+              </div>
+              <div class="cfield">
+                <label for="cfLastName">Last Name</label>
+                <input type="text" id="cfLastName" placeholder="Duval" autocomplete="family-name" />
+              </div>
+            </div>
+            <div class="cfield">
+              <label for="cfEmail">Email Address</label>
+              <input type="email" id="cfEmail" placeholder="hello@example.com" autocomplete="email" />
+            </div>
+            <div class="cfield">
+              <label for="cfPhone">Phone (optional)</label>
+              <input type="tel" id="cfPhone" placeholder="+44 207 000 0000" autocomplete="tel" />
+            </div>
+            <div class="cfield">
+              <label for="cfSubject">Subject</label>
+              <select id="cfSubject">
+                <option value="" disabled selected>Choose a subject…</option>
+                <option value="order">Order Enquiry</option>
+                <option value="custom">Custom Cake / Wedding Cake</option>
+                <option value="wholesale">Wholesale Partnership</option>
+                <option value="event">Corporate / Event Catering</option>
+                <option value="allergy">Allergen Information</option>
+                <option value="delivery">Delivery &amp; Shipping</option>
+                <option value="feedback">Feedback &amp; Compliments</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="cfield">
+              <label for="cfMessage">Message</label>
+              <textarea id="cfMessage" placeholder="Tell us how we can help — be as detailed as you like…"></textarea>
+            </div>
+            <p class="form-note">By submitting this form you agree to our Privacy Policy. We never share your data with third parties.</p>
+            <button type="submit" class="btn btn-primary btn-submit">
+              Send Message
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="17" height="17"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Right side -->
+        <div class="contact-side">
+
+          <!-- Map placeholder -->
+          <a href="https://maps.google.com/?q=14+Baker+Street+London" target="_blank" rel="noopener" class="map-box">
+            <span class="map-pin">📍</span>
+            <span class="map-label">14 Baker Street, London</span>
+            <span class="map-address">W1U 3AH · Near Baker Street Tube</span>
+            <span class="map-cta">Open in Google Maps →</span>
+          </a>
+
+          <!-- Opening hours -->
+          <div class="hours-card">
+            <div class="hours-card-title">
+              Opening Hours
+              <span class="open-pill">Open Now</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Monday – Friday</span>
+              <span class="hours-time">7:00 am – 7:00 pm</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Saturday</span>
+              <span class="hours-time">8:00 am – 5:00 pm</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Sunday</span>
+              <span class="hours-time">8:00 am – 3:00 pm</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Bank Holidays</span>
+              <span class="hours-closed">Closed</span>
+            </div>
+          </div>
+
+          <!-- Social follow -->
+          <div class="social-snippet">
+            <h4>Follow Us for Daily Bakes</h4>
+            <div class="social-links-row">
+              <a href="404.html" class="social-chip ig">Instagram</a>
+              <a href="404.html" class="social-chip fb">Facebook</a>
+              <a href="404.html" class="social-chip pt">Pinterest</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAQ ───────────────────────────────────────────────── -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="section-header" style="text-align:center">
+          <span class="section-tag">Quick Answers</span>
+          <h2 class="section-title">Frequently Asked <em>Questions</em></h2>
+        </div>
+        <div class="faq-list" id="faqList">
+
+          <div class="faq-item">
+            <button class="faq-btn" type="button">
+              Do you offer custom and wedding cakes?
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-body">Yes — our pastry studio specialises in custom celebration and wedding cakes. We handle everything from sketch to delivery. Orders need at least 2 weeks' notice; for wedding cakes we recommend 6–8 weeks. Send us a message with your date and vision and we'll arrange a tasting consultation.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" type="button">
+              What allergens are present in your products?
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-body">All our products are made in a kitchen that handles gluten, dairy, eggs, tree nuts and sesame. Each product listing on our site shows allergen tags (nut-free, vegan, GF etc.). If you have a severe allergy, please email us before ordering so we can advise on suitability and cross-contamination risk.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" type="button">
+              Do you deliver nationwide?
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-body">Yes. We ship to all mainland UK addresses Tuesday–Friday via next-day refrigerated courier. Orders must be placed before 12pm for same-day dispatch. Free delivery on orders over £50. Northern Ireland, Scottish Highlands and Channel Islands may incur a surcharge — see our Shipping Info page for full details.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" type="button">
+              Can I collect my order in store?
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-body">Absolutely. Choose "Click &amp; Collect" at checkout and select your preferred location (Baker Street or Shoreditch). You'll receive an email when your order is ready — usually within 2 hours for standard items, 24 hours for custom orders.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" type="button">
+              Do you cater for corporate events and offices?
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-body">We love corporate work. We offer weekly bread baskets, breakfast catering, event pastry platters and branded packaging for corporate gifting. Minimum orders apply. Get in touch via the form above or email hello@stackly.com to discuss volumes and pricing.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" type="button">
+              What is your returns and refunds policy?
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-body">Because our products are fresh food, we can't accept returns on standard items. However, if something arrives damaged, incorrect or below our quality standards, please photograph it and email us within 24 hours of delivery. We'll arrange a full replacement or refund promptly — your satisfaction is our priority.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" type="button">
+              Do you offer wholesale or trade pricing?
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-body">Yes — we supply a small number of restaurants, cafés and delis across London. Trade accounts require a minimum weekly order and a signed agreement. Contact us with details about your business and requirements and our wholesale team will follow up within 2 business days.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Locations ──────────────────────────────────────────── -->
+    <section class="locations-section">
+      <div class="container">
+        <div class="section-header" style="text-align:center">
+          <span class="section-tag">Find Us</span>
+          <h2 class="section-title">Two Locations, One <em>Heart</em></h2>
+        </div>
+        <div class="locations-grid">
+
+          <div class="location-card">
+            <div class="location-map" style="padding:0;font-size:0;">
+              <iframe
+                src="https://maps.google.com/maps?q=14+Baker+Street,+London,+W1U+3AH&output=embed&z=15"
+                width="100%" height="180" style="border:0;display:block;"
+                allowfullscreen="" loading="lazy"
+                title="Baker Street location map"></iframe>
+            </div>
+            <div class="location-body">
+              <span class="location-badge">⭐ Flagship</span>
+              <div class="location-name">Baker Street</div>
+              <div class="location-detail"><span>📍</span><span>14 Baker Street, London, W1U 3AH<br/>Nearest tube: Baker Street (Circle, Jubilee)</span></div>
+              <div class="location-detail"><span>🕐</span><span>Mon–Fri 7am–7pm &nbsp;·&nbsp; Sat 8am–5pm &nbsp;·&nbsp; Sun 8am–3pm</span></div>
+              <div class="location-detail"><span>📞</span><span><a href="tel:+442071234567" style="color:var(--primary)">+44 207 123 4567</a></span></div>
+              <div style="margin-top:20px">
+                <a href="https://maps.google.com/?q=14+Baker+Street+London" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Get Directions →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="location-card">
+            <div class="location-map" style="padding:0;font-size:0;">
+              <iframe
+                src="https://maps.google.com/maps?q=82+Curtain+Road,+London,+EC2A+3BS&output=embed&z=15"
+                width="100%" height="180" style="border:0;display:block;"
+                allowfullscreen="" loading="lazy"
+                title="Shoreditch location map"></iframe>
+            </div>
+            <div class="location-body">
+              <span class="location-badge">🆕 New 2024</span>
+              <div class="location-name">Shoreditch</div>
+              <div class="location-detail"><span>📍</span><span>82 Curtain Road, London, EC2A 3BS<br/>Nearest tube: Old Street (Northern)</span></div>
+              <div class="location-detail"><span>🕐</span><span>Mon–Fri 7:30am–6pm &nbsp;·&nbsp; Sat–Sun 9am–4pm</span></div>
+              <div class="location-detail"><span>📞</span><span><a href="tel:+442079876543" style="color:var(--primary)">+44 207 987 6543</a></span></div>
+              <div style="margin-top:20px">
+                <a href="https://maps.google.com/?q=82+Curtain+Road+London" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Get Directions →</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-top container">
+      <div class="footer-brand">
+        <a href="index.html" class="logo logo--light">
+          <img src="images/logo.webp" class="logo-icon" alt="">
+          <div class="logo-text">
+            <span class="logo-name">Stackly</span>
+            <span class="logo-tagline">Artisan Bakery</span>
+          </div>
+        </a>
+        <p>Handcrafted pastries, breads, and cakes made with love and the finest local ingredients since 2012.</p>
+        <div class="social-links">
+          <a href="404.html" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="404.html" class="social-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="404.html" class="social-link" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Allergen Info</a></li>
+          <li><a href="#">Gift Cards</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Our Locations</h4>
+        <div class="footer-loc">
+          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-loc-name">📍 Baker Street</a>
+          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-loc-address">14 Baker Street, London, W1U 3AH</a>
+          <p>📞 <a href="tel:+442071234567">+44 207 123 4567</a></p>
+          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-map-link">Get Directions →</a>
+        </div>
+        <div class="footer-loc">
+          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-loc-name">📍 Shoreditch</a>
+          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-loc-address">82 Curtain Road, London, EC2A 3BS</a>
+          <p>📞 <a href="tel:+442079876543">+44 207 987 6543</a></p>
+          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-map-link">Get Directions →</a>
+        </div>
+        <div class="opening-hours">
+          <p><strong>Mon – Fri:</strong> 7am – 7pm</p>
+          <p><strong>Sat – Sun:</strong> 8am – 5pm</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>&copy; 2026 Stackly Artisan Bakery. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Settings</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="quickViewModal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    /* ── FAQ accordion ── */
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    /* ── Contact form submit ── */
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector('[type="submit"]');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      setTimeout(() => {
+        showToast('Message sent! We\'ll reply within 24 hours. 🥐', 'success');
+        e.target.reset();
+        btn.innerHTML = 'Send Message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="17" height="17"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+        btn.disabled = false;
+      }, 1200);
+    });
+  </script>
+</body>
+</html>
