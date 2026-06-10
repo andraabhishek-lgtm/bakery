@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gift Cards | Stackly Artisan Bakery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      padding: 128px 0 80px;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: ''; position: absolute;
+      width: 560px; height: 560px; border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      top: -200px; right: -80px; pointer-events: none;
+    }
+    .page-hero::after {
+      content: ''; position: absolute;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: rgba(232,168,56,0.08);
+      bottom: -100px; left: 10%; pointer-events: none;
+    }
+    .page-breadcrumb {
+      font-size: 0.76rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: rgba(255,255,255,0.5); margin-bottom: 20px;
+    }
+    .page-breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .page-breadcrumb a:hover { color: var(--accent-light); }
+    .page-breadcrumb span { margin: 0 8px; }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 700;
+      color: var(--white); line-height: 1.15; margin: 0 0 16px;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--accent-light); }
+    .page-hero p { font-size: 1rem; color: rgba(255,255,255,0.72); max-width: 560px; }
+
+    .page-body { background: var(--cream); padding: 72px 0 100px; }
+    .page-body .container { max-width: 860px; }
+
+    /* Card showcase */
+    .gc-showcase {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+      margin-bottom: 60px;
+    }
+    .gc-card {
+      border-radius: var(--radius-xl); overflow: hidden;
+      box-shadow: 0 12px 40px rgba(107,58,42,0.18);
+      position: relative; cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .gc-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(107,58,42,0.25); }
+    .gc-card-inner {
+      padding: 36px 32px;
+      min-height: 200px; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .gc-card.classic .gc-card-inner { background: linear-gradient(135deg, #4A2419 0%, #6B3A2A 100%); }
+    .gc-card.gold   .gc-card-inner { background: linear-gradient(135deg, #8B6914 0%, #E8A838 100%); }
+    .gc-card-logo {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
+      color: rgba(255,255,255,0.9); letter-spacing: 0.04em;
+    }
+    .gc-card-tagline { font-size: 0.72rem; color: rgba(255,255,255,0.55); margin-top: 2px; }
+    .gc-card-amount {
+      font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700;
+      color: var(--white); text-align: right;
+    }
+    .gc-card-amount span { font-size: 1.1rem; font-weight: 400; display: block; font-family: 'Lato', sans-serif; opacity: 0.7; }
+
+    .gc-card-chip {
+      position: absolute; top: 20px; right: 20px;
+      background: rgba(255,255,255,0.18); color: var(--white);
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; border-radius: 50px; padding: 4px 12px;
+    }
+
+    /* Value selector */
+    .gc-section { margin-bottom: 52px; }
+    .gc-section-title {
+      font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700;
+      color: var(--primary-dark); margin-bottom: 20px;
+      padding-bottom: 12px; border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .gc-amounts {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;
+    }
+    .gc-amount-btn {
+      height: 52px; padding: 0 28px;
+      border: 2px solid var(--border); border-radius: 50px;
+      background: var(--white); font-family: 'Lato', sans-serif;
+      font-size: 1rem; font-weight: 700; color: var(--text-dark);
+      cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+    .gc-amount-btn:hover,
+    .gc-amount-btn.active { border-color: var(--primary); background: var(--primary); color: var(--white); }
+
+    .gc-custom-row {
+      display: flex; gap: 12px; align-items: center; margin-bottom: 28px;
+    }
+    .gc-custom-input {
+      height: 50px; padding: 0 18px; width: 180px;
+      border: 1.5px solid var(--border); border-radius: var(--radius);
+      font-family: 'Lato', sans-serif; font-size: 0.95rem; color: var(--text-dark);
+      background: var(--white); outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .gc-custom-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(107,58,42,0.1); }
+    .gc-custom-label { font-size: 0.88rem; color: var(--text-mid); }
+
+    .gc-buy-btn {
+      height: 54px; padding: 0 40px;
+      background: var(--primary); color: var(--white);
+      border: none; border-radius: 50px;
+      font-family: 'Lato', sans-serif; font-size: 1rem; font-weight: 700;
+      cursor: pointer; letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .gc-buy-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+    /* How it works */
+    .gc-steps {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      margin-bottom: 28px;
+    }
+    .gc-step {
+      background: var(--white); border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);
+      padding: 28px 22px; text-align: center;
+    }
+    .gc-step-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+    .gc-step h4 { font-size: 0.92rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; }
+    .gc-step p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.6; margin: 0; }
+
+    .gc-note {
+      background: var(--white); border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 20px; font-size: 0.88rem; color: var(--text-mid);
+      line-height: 1.6; margin-bottom: 16px;
+    }
+    .gc-note strong { color: var(--primary-dark); }
+
+    @media (max-width: 700px) {
+      .gc-showcase { grid-template-columns: 1fr; }
+      .gc-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <span>🎂 Free delivery on orders over $50 &nbsp;|&nbsp; Use code <strong>FRESH10</strong> for 10% off your first order</span>
+    <button class="announcement-close" aria-label="Close">&times;</button>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner container">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="logo-group">
+        <a href="index.html" class="logo">
+          <img src="images/logo.webp" class="logo-icon" alt="">
+          <div class="logo-text">
+            <span class="logo-name">Stackly</span>
+            <span class="logo-tagline">Artisan Bakery</span>
+          </div>
+        </a>
+        <div class="logo-badge">
+          <span>Baked fresh daily</span>
+          <span>Est. 2012 · London</span>
+        </div>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="shop.html" class="nav-link">Shop</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link">Categories <span class="chevron">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="shop.html?cat=cakes">Cakes &amp; Tarts</a>
+            <a href="shop.html?cat=breads">Breads &amp; Rolls</a>
+            <a href="shop.html?cat=pastries">Pastries</a>
+            <a href="shop.html?cat=cookies">Cookies</a>
+            <a href="shop.html?cat=cupcakes">Cupcakes</a>
+            <a href="shop.html?cat=seasonal">Seasonal Specials</a>
+          </div>
+        </div>
+        <a href="our-story.html" class="nav-link">Our Story</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn search-btn" id="searchToggle" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" id="cartToggle" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <a href="login.html" class="header-login-btn" aria-label="Sign In">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="btn-label">Sign In</span>
+        </a>
+      </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <div class="container">
+        <input type="text" class="search-input" placeholder="Search for croissants, sourdough, cakes..." id="searchInput" />
+        <button class="search-submit">Search</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>Your cart is empty</p>
+        <a href="shop.html" class="btn btn-primary btn-sm">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+      <p class="cart-note">Shipping &amp; taxes calculated at checkout</p>
+      <a href="checkout.html" class="btn btn-primary btn-full">Checkout</a>
+      <a href="shop.html" class="btn btn-outline btn-full">Continue Shopping</a>
+    </div>
+  </aside>
+
+  <main>
+
+    <section class="page-hero">
+      <div class="container">
+        <nav class="page-breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a><span>/</span> Gift Cards
+        </nav>
+        <h1>Give the Gift of <em>Good Baking</em></h1>
+        <p>The perfect present for anyone who loves fresh artisan bread, pastries, and cakes. Available in any amount.</p>
+      </div>
+    </section>
+
+    <section class="page-body">
+      <div class="container">
+
+        <div class="gc-showcase">
+          <div class="gc-card classic">
+            <span class="gc-card-chip">Classic</span>
+            <div class="gc-card-inner">
+              <div>
+                <div class="gc-card-logo">Stackly</div>
+                <div class="gc-card-tagline">Artisan Bakery · Est. 2012</div>
+              </div>
+              <div class="gc-card-amount">£25<span>Gift Card</span></div>
+            </div>
+          </div>
+          <div class="gc-card gold">
+            <span class="gc-card-chip">Premium</span>
+            <div class="gc-card-inner">
+              <div>
+                <div class="gc-card-logo">Stackly</div>
+                <div class="gc-card-tagline">Artisan Bakery · Est. 2012</div>
+              </div>
+              <div class="gc-card-amount">£100<span>Gift Card</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gc-section">
+          <div class="gc-section-title">Choose an Amount</div>
+          <div class="gc-amounts">
+            <button class="gc-amount-btn active" type="button">£10</button>
+            <button class="gc-amount-btn" type="button">£25</button>
+            <button class="gc-amount-btn" type="button">£50</button>
+            <button class="gc-amount-btn" type="button">£75</button>
+            <button class="gc-amount-btn" type="button">£100</button>
+            <button class="gc-amount-btn" type="button">£150</button>
+          </div>
+          <div class="gc-custom-row">
+            <input type="number" class="gc-custom-input" placeholder="Custom amount" min="5" max="500" id="gcCustom" />
+            <span class="gc-custom-label">Enter £5 – £500</span>
+          </div>
+          <button class="gc-buy-btn" type="button" id="gcBuyBtn">Buy Gift Card — £10</button>
+        </div>
+
+        <div class="gc-section">
+          <div class="gc-section-title">How It Works</div>
+          <div class="gc-steps">
+            <div class="gc-step">
+              <span class="gc-step-icon">🛍️</span>
+              <h4>Choose &amp; Buy</h4>
+              <p>Select an amount above and complete your purchase. You'll receive a digital gift card by email within minutes.</p>
+            </div>
+            <div class="gc-step">
+              <span class="gc-step-icon">📧</span>
+              <h4>Send to a Friend</h4>
+              <p>Forward the email with the unique code to whoever you'd like to treat — or print it and wrap it up nicely.</p>
+            </div>
+            <div class="gc-step">
+              <span class="gc-step-icon">🎂</span>
+              <h4>Redeem at Checkout</h4>
+              <p>The recipient enters their code at checkout and the balance is applied instantly to their order.</p>
+            </div>
+          </div>
+          <div class="gc-note"><strong>Valid for 12 months</strong> from date of purchase. Can be used in-store at Baker Street and Shoreditch, or online. Multiple gift cards can be combined in a single order. Any unused balance remains valid until the expiry date.</div>
+          <div class="gc-note"><strong>Corporate orders:</strong> Need gift cards in bulk for a team or client event? Email hello@stackly.com and we'll arrange branded cards with a custom message at no extra charge for orders of 10 or more.</div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-top container">
+      <div class="footer-brand">
+        <a href="index.html" class="logo logo--light">
+          <img src="images/logo.webp" class="logo-icon" alt="">
+          <div class="logo-text">
+            <span class="logo-name">Stackly</span>
+            <span class="logo-tagline">Artisan Bakery</span>
+          </div>
+        </a>
+        <p>Handcrafted pastries, breads, and cakes made with love and the finest local ingredients since 2012.</p>
+        <div class="social-links">
+          <a href="404.html" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="404.html" class="social-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="404.html" class="social-link" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="shipping.html">Shipping Info</a></li>
+          <li><a href="returns.html">Returns</a></li>
+          <li><a href="allergen.html">Allergen Info</a></li>
+          <li><a href="gift-cards.html">Gift Cards</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Our Locations</h4>
+        <div class="footer-loc">
+          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-loc-name">📍 Baker Street</a>
+          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-loc-address">14 Baker Street, London, W1U 3AH</a>
+          <p>📞 <a href="tel:+442071234567">+44 207 123 4567</a></p>
+          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-map-link">Get Directions →</a>
+        </div>
+        <div class="footer-loc">
+          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-loc-name">📍 Shoreditch</a>
+          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-loc-address">82 Curtain Road, London, EC2A 3BS</a>
+          <p>📞 <a href="tel:+442079876543">+44 207 987 6543</a></p>
+          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-map-link">Get Directions →</a>
+        </div>
+        <div class="opening-hours">
+          <p><strong>Mon – Fri:</strong> 7am – 7pm</p>
+          <p><strong>Sat – Sun:</strong> 8am – 5pm</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>&copy; 2026 Stackly Artisan Bakery. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="404.html">Privacy Policy</a>
+        <a href="404.html">Terms of Service</a>
+        <a href="404.html">Cookie Settings</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="quickViewModal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    const amountBtns = document.querySelectorAll('.gc-amount-btn');
+    const customInput = document.getElementById('gcCustom');
+    const buyBtn = document.getElementById('gcBuyBtn');
+    let selected = '£10';
+
+    amountBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        amountBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        customInput.value = '';
+        selected = btn.textContent;
+        buyBtn.textContent = 'Buy Gift Card — ' + selected;
+      });
+    });
+
+    customInput.addEventListener('input', () => {
+      const val = customInput.value;
+      if (val) {
+        amountBtns.forEach(b => b.classList.remove('active'));
+        selected = '£' + val;
+        buyBtn.textContent = 'Buy Gift Card — ' + selected;
+      }
+    });
+
+    buyBtn.addEventListener('click', () => {
+      if (typeof showToast === 'function') {
+        showToast('Gift card purchase coming soon! Contact us at hello@stackly.com', 'success');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -43,6 +43,182 @@ function saveCart() {
   localStorage.setItem('lf_cart', JSON.stringify(cart));
 }
 
+// ── Wishlist State ────────────────────────────────────────────
+
+let wishlist = JSON.parse(localStorage.getItem('lf_wishlist') || '[]');
+
+function saveWishlist() {
+  localStorage.setItem('lf_wishlist', JSON.stringify(wishlist));
+}
+
+function isInWishlist(id) {
+  return wishlist.includes(id);
+}
+
+function toggleWishlist(productId) {
+  if (isInWishlist(productId)) {
+    wishlist = wishlist.filter(id => id !== productId);
+    saveWishlist();
+    renderWishlist();
+    updateWishlistCount();
+    return false;
+  } else {
+    wishlist.push(productId);
+    saveWishlist();
+    renderWishlist();
+    updateWishlistCount();
+    return true;
+  }
+}
+
+function updateWishlistCount() {
+  const countEl = document.getElementById('wishlistCount');
+  if (countEl) {
+    countEl.textContent = wishlist.length;
+    countEl.style.display = wishlist.length > 0 ? 'flex' : 'none';
+  }
+  document.querySelectorAll('.wishlist-btn[data-id]').forEach(btn => {
+    btn.classList.toggle('in-wishlist', isInWishlist(parseInt(btn.dataset.id)));
+  });
+}
+
+function openWishlist()  {
+  document.getElementById('wishlistSidebar')?.classList.add('open');
+  document.getElementById('wishlistOverlay')?.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeWishlist() {
+  document.getElementById('wishlistSidebar')?.classList.remove('open');
+  document.getElementById('wishlistOverlay')?.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderWishlist() {
+  const itemsEl = document.getElementById('wishlistItems');
+  const emptyEl = document.getElementById('wishlistEmpty');
+  if (!itemsEl) return;
+  Array.from(itemsEl.querySelectorAll('.wishlist-item')).forEach(el => el.remove());
+  if (wishlist.length === 0) {
+    if (emptyEl) emptyEl.style.display = '';
+    return;
+  }
+  if (emptyEl) emptyEl.style.display = 'none';
+  wishlist.forEach(id => {
+    const p = PRODUCTS.find(pr => pr.id === id);
+    if (!p) return;
+    const el = document.createElement('div');
+    el.className = 'wishlist-item';
+    el.innerHTML = `
+      <div class="wishlist-item-img">
+        <img src="${p.img}" alt="${p.name}"
+          onerror="this.style.display='none';this.parentElement.innerHTML='<span>${p.emoji}</span>'" />
+      </div>
+      <div class="wishlist-item-info">
+        <div class="wishlist-item-name">${p.name}</div>
+        <div class="wishlist-item-price">$${p.price.toFixed(2)}</div>
+      </div>
+      <div class="wishlist-item-actions">
+        <button class="wishlist-atc" data-id="${p.id}">Add to Cart</button>
+        <button class="wishlist-remove" data-id="${p.id}">Remove</button>
+      </div>`;
+    itemsEl.appendChild(el);
+  });
+}
+
+function initWishlist() {
+  // Inject CSS
+  const style = document.createElement('style');
+  style.textContent = `
+    .wishlist-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+    .wishlist-overlay.open{opacity:1;visibility:visible}
+    .wishlist-sidebar{position:fixed;top:0;right:-440px;width:400px;max-width:100vw;height:100%;background:#fff;z-index:1001;box-shadow:-4px 0 24px rgba(0,0,0,.13);display:flex;flex-direction:column;transition:right .35s cubic-bezier(.4,0,.2,1)}
+    .wishlist-sidebar.open{right:0}
+    .wishlist-sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #e8e0d6;flex-shrink:0}
+    .wishlist-sidebar-header h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#2C1A0E;margin:0}
+    .wishlist-close{background:none;border:none;cursor:pointer;font-size:1.5rem;color:#7a6054;line-height:1;padding:4px 8px}
+    .wishlist-close:hover{color:#2C1A0E}
+    .wishlist-items{flex:1;overflow-y:auto;padding:8px 0}
+    .wishlist-empty{text-align:center;padding:52px 24px}
+    .wishlist-empty-icon{font-size:2.8rem;margin-bottom:12px}
+    .wishlist-empty p{color:#7a6054;margin-bottom:18px;font-size:.9rem}
+    .wishlist-item{display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid #f0e8de}
+    .wishlist-item-img{width:64px;height:64px;border-radius:10px;overflow:hidden;background:#fff8ee;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.6rem}
+    .wishlist-item-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .wishlist-item-info{flex:1;min-width:0}
+    .wishlist-item-name{font-size:.88rem;font-weight:700;color:#2C1A0E;line-height:1.3}
+    .wishlist-item-price{font-size:.82rem;color:#6B3A2A;font-weight:700;margin-top:3px}
+    .wishlist-item-actions{display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0}
+    .wishlist-atc{font-size:.74rem;font-weight:700;padding:6px 12px;background:#6B3A2A;color:#fff;border:none;border-radius:50px;cursor:pointer;white-space:nowrap;transition:background .2s}
+    .wishlist-atc:hover{background:#4A2419}
+    .wishlist-remove{font-size:.72rem;color:#E53E3E;background:none;border:none;cursor:pointer;text-decoration:underline;padding:0}
+    .wishlist-remove:hover{color:#C53030}
+    .wishlist-count{position:absolute;top:-6px;right:-6px;background:#E8A838;color:#2C1A0E;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Lato',sans-serif;line-height:1;pointer-events:none}
+    .wishlist-btn.in-wishlist svg{fill:#E53E3E;stroke:#E53E3E}
+  `;
+  document.head.appendChild(style);
+
+  // Inject overlay + sidebar
+  const overlay = document.createElement('div');
+  overlay.className = 'wishlist-overlay';
+  overlay.id = 'wishlistOverlay';
+  document.body.appendChild(overlay);
+
+  const sidebar = document.createElement('aside');
+  sidebar.className = 'wishlist-sidebar';
+  sidebar.id = 'wishlistSidebar';
+  sidebar.innerHTML = `
+    <div class="wishlist-sidebar-header">
+      <h3>My Wishlist</h3>
+      <button class="wishlist-close" id="wishlistClose">&times;</button>
+    </div>
+    <div class="wishlist-items" id="wishlistItems">
+      <div class="wishlist-empty" id="wishlistEmpty">
+        <div class="wishlist-empty-icon">🤍</div>
+        <p>Save your favourites here</p>
+        <a href="shop.html" class="btn btn-primary btn-sm">Explore Products</a>
+      </div>
+    </div>`;
+  document.body.appendChild(sidebar);
+
+  // Add count badge to header wishlist button
+  const headerBtn = document.querySelector('.icon-btn[aria-label="Wishlist"]');
+  if (headerBtn) {
+    headerBtn.style.position = 'relative';
+    const badge = document.createElement('span');
+    badge.className = 'wishlist-count';
+    badge.id = 'wishlistCount';
+    badge.style.display = 'none';
+    headerBtn.appendChild(badge);
+    headerBtn.addEventListener('click', openWishlist);
+  }
+
+  // Sidebar close handlers
+  document.getElementById('wishlistClose').addEventListener('click', closeWishlist);
+  overlay.addEventListener('click', closeWishlist);
+
+  // Sidebar item delegation (Add to Cart / Remove)
+  sidebar.addEventListener('click', e => {
+    const atcBtn = e.target.closest('.wishlist-atc');
+    if (atcBtn) {
+      addToCart(parseInt(atcBtn.dataset.id));
+      const orig = atcBtn.textContent;
+      atcBtn.textContent = 'Added ✓';
+      setTimeout(() => { atcBtn.textContent = orig; }, 1200);
+      return;
+    }
+    const removeBtn = e.target.closest('.wishlist-remove');
+    if (removeBtn) {
+      wishlist = wishlist.filter(id => id !== parseInt(removeBtn.dataset.id));
+      saveWishlist();
+      renderWishlist();
+      updateWishlistCount();
+    }
+  });
+
+  renderWishlist();
+  updateWishlistCount();
+}
+
 function addToCart(productId, qty = 1) {
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
@@ -644,8 +820,10 @@ function initDelegatedEvents() {
     // Wishlist buttons
     const wlBtn = e.target.closest('.wishlist-btn');
     if (wlBtn) {
-      wlBtn.querySelector('svg')?.setAttribute('fill', 'var(--accent)');
-      showToast('Added to wishlist ❤️', 'success');
+      const id = parseInt(wlBtn.dataset.id);
+      const added = toggleWishlist(id);
+      wlBtn.classList.toggle('in-wishlist', added);
+      showToast(added ? 'Added to wishlist ❤️' : 'Removed from wishlist', added ? 'success' : 'error');
       return;
     }
 
@@ -724,6 +902,24 @@ function initAnimations() {
   document.head.appendChild(style);
 })();
 
+// ── Back to Top ───────────────────────────────────────────────
+
+function initBackToTop() {
+  const btn = document.createElement('button');
+  btn.className = 'back-to-top';
+  btn.setAttribute('aria-label', 'Back to top');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>';
+  document.body.appendChild(btn);
+
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
 // ── Init ─────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -735,6 +931,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initAnnouncement();
   initNewsletter();
   initDelegatedEvents();
+  initWishlist();
+  initBackToTop();
 
   const isShopPage = !!document.getElementById('shopProductsGrid');
   if (isShopPage) {

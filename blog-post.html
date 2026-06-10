@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    /* ── Post Hero ───────────────────────────────────────────── */
+    /* â”€â”€ Post Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .bpost-hero {
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
       padding: 128px 0 72px;
@@ -74,7 +74,7 @@
       letter-spacing: 0.04em;
     }
 
-    /* ── Post Body ───────────────────────────────────────────── */
+    /* â”€â”€ Post Body â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .bpost-body {
       background: var(--cream);
       padding: 72px 0 96px;
@@ -152,7 +152,7 @@
     }
     .bpost-back:hover { background: var(--primary-dark); transform: translateX(-3px); }
 
-    /* ── Responsive ──────────────────────────────────────────── */
+    /* â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     @media (max-width: 768px) {
       .bpost-hero { padding: 96px 0 56px; }
       .bpost-body { padding: 52px 0 72px; }
@@ -166,7 +166,7 @@
 
   <!-- Announcement Bar -->
   <div class="announcement-bar">
-    <span>🎂 Free delivery on orders over $50 &nbsp;|&nbsp; Use code <strong>FRESH10</strong> for 10% off your first order</span>
+    <span>ðŸŽ‚ Free delivery on orders over $50 &nbsp;|&nbsp; Use code <strong>FRESH10</strong> for 10% off your first order</span>
     <button class="announcement-close" aria-label="Close">&times;</button>
   </div>
 
@@ -186,14 +186,14 @@
         </a>
         <div class="logo-badge">
           <span>Baked fresh daily</span>
-          <span>Est. 2012 · London</span>
+          <span>Est. 2012 Â· London</span>
         </div>
       </div>
       <nav class="nav" id="nav">
         <a href="index.html" class="nav-link">Home</a>
         <a href="shop.html" class="nav-link">Shop</a>
         <div class="nav-dropdown">
-          <a href="#" class="nav-link">Categories <span class="chevron">▾</span></a>
+          <a href="#" class="nav-link">Categories <span class="chevron">â–¾</span></a>
           <div class="dropdown-menu">
             <a href="shop.html?cat=cakes">Cakes &amp; Tarts</a>
             <a href="shop.html?cat=breads">Breads &amp; Rolls</a>
@@ -241,7 +241,7 @@
     </div>
     <div class="cart-items" id="cartItems">
       <div class="cart-empty" id="cartEmpty">
-        <div class="cart-empty-icon">🛒</div>
+        <div class="cart-empty-icon">ðŸ›’</div>
         <p>Your cart is empty</p>
         <a href="shop.html" class="btn btn-primary btn-sm">Start Shopping</a>
       </div>
@@ -249,32 +249,32 @@
     <div class="cart-footer" id="cartFooter" style="display:none">
       <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
       <p class="cart-note">Shipping &amp; taxes calculated at checkout</p>
-      <a href="#" class="btn btn-primary btn-full">Checkout</a>
+      <a href="checkout.html" class="btn btn-primary btn-full">Checkout</a>
       <a href="shop.html" class="btn btn-outline btn-full">Continue Shopping</a>
     </div>
   </aside>
 
   <main>
 
-    <!-- ── Post Hero ─────────────────────────────────────────── -->
+    <!-- â”€â”€ Post Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <section class="bpost-hero">
       <div class="container">
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="index.html">Home</a><span>/</span><a href="blog.html">Blog</a><span>/</span><span id="bpostBreadTitle">Article</span>
         </nav>
         <span class="bpost-tag" id="bpostTag">Tag</span>
-        <h1 id="bpostTitle">Loading…</h1>
+        <h1 id="bpostTitle">Loadingâ€¦</h1>
         <p class="bpost-hero-meta" id="bpostMeta"></p>
       </div>
     </section>
 
-    <!-- ── Post Article ───────────────────────────────────────── -->
+    <!-- â”€â”€ Post Article â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <article class="bpost-body">
       <div class="container">
         <div class="bpost-container">
           <div class="bpost-content" id="bpostContent"></div>
           <hr class="bpost-divider" />
-          <a href="blog.html" class="bpost-back">← Back to Blog</a>
+          <a href="blog.html" class="bpost-back">â† Back to Blog</a>
         </div>
       </div>
     </article>
@@ -312,39 +312,39 @@
       <div class="footer-links">
         <h4>Customer Care</h4>
         <ul>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Shipping Info</a></li>
-          <li><a href="#">Returns</a></li>
-          <li><a href="#">Allergen Info</a></li>
-          <li><a href="#">Gift Cards</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="shipping.html">Shipping Info</a></li>
+          <li><a href="returns.html">Returns</a></li>
+          <li><a href="allergen.html">Allergen Info</a></li>
+          <li><a href="gift-cards.html">Gift Cards</a></li>
         </ul>
       </div>
       <div class="footer-contact">
         <h4>Our Locations</h4>
         <div class="footer-loc">
-          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-loc-name">📍 Baker Street</a>
+          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-loc-name">ðŸ“ Baker Street</a>
           <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-loc-address">14 Baker Street, London, W1U 3AH</a>
-          <p>📞 <a href="tel:+442071234567">+44 207 123 4567</a></p>
-          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-map-link">Get Directions →</a>
+          <p>ðŸ“ž <a href="tel:+442071234567">+44 207 123 4567</a></p>
+          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-map-link">Get Directions â†’</a>
         </div>
         <div class="footer-loc">
-          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-loc-name">📍 Shoreditch</a>
+          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-loc-name">ðŸ“ Shoreditch</a>
           <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-loc-address">82 Curtain Road, London, EC2A 3BS</a>
-          <p>📞 <a href="tel:+442079876543">+44 207 987 6543</a></p>
-          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-map-link">Get Directions →</a>
+          <p>ðŸ“ž <a href="tel:+442079876543">+44 207 987 6543</a></p>
+          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-map-link">Get Directions â†’</a>
         </div>
         <div class="opening-hours">
-          <p><strong>Mon – Fri:</strong> 7am – 7pm</p>
-          <p><strong>Sat – Sun:</strong> 8am – 5pm</p>
+          <p><strong>Mon â€“ Fri:</strong> 7am â€“ 7pm</p>
+          <p><strong>Sat â€“ Sun:</strong> 8am â€“ 5pm</p>
         </div>
       </div>
     </div>
     <div class="footer-bottom container">
       <p>&copy; 2026 Stackly Artisan Bakery. All rights reserved.</p>
       <div class="footer-legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Cookie Settings</a>
+        <a href="404.html">Privacy Policy</a>
+        <a href="404.html">Terms of Service</a>
+        <a href="404.html">Cookie Settings</a>
       </div>
     </div>
   </footer>
@@ -367,7 +367,7 @@
           date: '12 June 2026',
           readTime: '8 min read',
           content: `
-            <p class="bpost-lead">Few pastries command as much respect — or as much patience — as the butter croissant. The paper-thin, shatteringly crisp exterior; the honeycombed, pillowy crumb; that rich, buttery perfume that fills a kitchen at dawn. At Stackly we make hundreds every morning. Here is the technique our pastry chef uses, distilled for the home baker.</p>
+            <p class="bpost-lead">Few pastries command as much respect â€” or as much patience â€” as the butter croissant. The paper-thin, shatteringly crisp exterior; the honeycombed, pillowy crumb; that rich, buttery perfume that fills a kitchen at dawn. At Stackly we make hundreds every morning. Here is the technique our pastry chef uses, distilled for the home baker.</p>
 
             <h2>What Makes a Croissant a Croissant?</h2>
             <p>The secret is <strong>lamination</strong>: alternating thin layers of dough and cold butter, folded and rolled repeatedly until you have dozens of micro-thin sheets. When they hit the oven, the water in the butter turns to steam and pushes the layers apart, creating that iconic flaky honeycomb structure. Skip or rush any stage and the layers collapse into a dense, greasy roll.</p>
@@ -383,23 +383,23 @@
               <li><strong>1 egg + splash of milk</strong> for egg wash</li>
             </ul>
 
-            <h2>Step 1 — Make the Détrempe</h2>
-            <p>Combine flour, salt, sugar, and yeast in a stand mixer fitted with a dough hook. Add cold milk and mix on low for 3 minutes, then medium for 4–5 minutes until a smooth, non-sticky dough forms. Do not over-develop the gluten — you want the dough pliable, not elastic. Shape into a flat rectangle, wrap tightly in cling film, and refrigerate overnight (minimum 8 hours).</p>
+            <h2>Step 1 â€” Make the DÃ©trempe</h2>
+            <p>Combine flour, salt, sugar, and yeast in a stand mixer fitted with a dough hook. Add cold milk and mix on low for 3 minutes, then medium for 4â€“5 minutes until a smooth, non-sticky dough forms. Do not over-develop the gluten â€” you want the dough pliable, not elastic. Shape into a flat rectangle, wrap tightly in cling film, and refrigerate overnight (minimum 8 hours).</p>
 
-            <h2>Step 2 — Prepare the Butter Block</h2>
-            <p>Beat 280g cold butter between two sheets of baking parchment into a 20×20cm square roughly 1cm thick. It should be firm but pliable — around 15–17°C. If it cracks when bent, let it warm briefly; if it is greasy, return it to the fridge. <strong>The butter and the dough must be the same temperature when you begin laminating.</strong></p>
+            <h2>Step 2 â€” Prepare the Butter Block</h2>
+            <p>Beat 280g cold butter between two sheets of baking parchment into a 20Ã—20cm square roughly 1cm thick. It should be firm but pliable â€” around 15â€“17Â°C. If it cracks when bent, let it warm briefly; if it is greasy, return it to the fridge. <strong>The butter and the dough must be the same temperature when you begin laminating.</strong></p>
 
-            <h2>Step 3 — Laminate the Dough</h2>
-            <p>Roll the chilled dough into a 40×20cm rectangle. Place the butter block in the centre and fold the dough over it like an envelope, sealing the edges. Roll out to 60×20cm, then perform a letter fold: fold the bottom third up, then the top third down over it. Wrap and chill for 30 minutes. Repeat the roll-and-fold process twice more, chilling between each. You now have 27 distinct layers of butter.</p>
+            <h2>Step 3 â€” Laminate the Dough</h2>
+            <p>Roll the chilled dough into a 40Ã—20cm rectangle. Place the butter block in the centre and fold the dough over it like an envelope, sealing the edges. Roll out to 60Ã—20cm, then perform a letter fold: fold the bottom third up, then the top third down over it. Wrap and chill for 30 minutes. Repeat the roll-and-fold process twice more, chilling between each. You now have 27 distinct layers of butter.</p>
 
-            <h2>Step 4 — Shape and Proof</h2>
-            <p>Roll the laminated dough to 5mm thick. Cut long isosceles triangles with a base of approximately 10cm. Starting at the base, roll each triangle loosely toward the tip, curving the ends inward to form the crescent shape. Place on lined baking trays with generous spacing. Brush lightly with egg wash and leave to proof at room temperature (19–21°C) for 2–3 hours, until they look visibly puffed and wobble gently when the tray is nudged.</p>
+            <h2>Step 4 â€” Shape and Proof</h2>
+            <p>Roll the laminated dough to 5mm thick. Cut long isosceles triangles with a base of approximately 10cm. Starting at the base, roll each triangle loosely toward the tip, curving the ends inward to form the crescent shape. Place on lined baking trays with generous spacing. Brush lightly with egg wash and leave to proof at room temperature (19â€“21Â°C) for 2â€“3 hours, until they look visibly puffed and wobble gently when the tray is nudged.</p>
 
-            <h2>Step 5 — Bake to Golden Perfection</h2>
-            <p>Preheat your oven to 200°C (fan 190°C). Apply a second coat of egg wash, being careful not to let it drip down the cut layers — this glues them shut. Bake for 16–18 minutes until deep amber all over. Resist opening the oven in the first 12 minutes. Transfer to a wire rack and eat within 4 hours for peak texture.</p>
+            <h2>Step 5 â€” Bake to Golden Perfection</h2>
+            <p>Preheat your oven to 200Â°C (fan 190Â°C). Apply a second coat of egg wash, being careful not to let it drip down the cut layers â€” this glues them shut. Bake for 16â€“18 minutes until deep amber all over. Resist opening the oven in the first 12 minutes. Transfer to a wire rack and eat within 4 hours for peak texture.</p>
 
             <blockquote>
-              <p>"The biggest mistake home bakers make is rushing the fridge time between folds. Cold butter stays in distinct layers; warm butter smears and merges. Every minute of chilling is earning you flakiness." — Head Pastry Chef, Stackly Bakehouse</p>
+              <p>"The biggest mistake home bakers make is rushing the fridge time between folds. Cold butter stays in distinct layers; warm butter smears and merges. Every minute of chilling is earning you flakiness." â€” Head Pastry Chef, Stackly Bakehouse</p>
             </blockquote>
           `
         },
@@ -412,23 +412,23 @@
           content: `
             <p class="bpost-lead">By 4am, the city outside is dark and quiet. Inside our Baker Street kitchen, the ovens are already at temperature and the first loaves of the day are on the bench. This is what a typical morning looks like for the Stackly team.</p>
 
-            <h2>3:45am — The Alarm Goes Off</h2>
-            <p>Most of our bakers have been doing this for years, and the early start never really gets easier — you just get used to it. The routine helps: dark kitchen, coffee on, aprons tied. Muscle memory takes over before the brain is fully awake. The pre-ferments started the previous evening are checked first: the sourdough levain, the poolish for the baguettes, the overnight focaccia dough.</p>
+            <h2>3:45am â€” The Alarm Goes Off</h2>
+            <p>Most of our bakers have been doing this for years, and the early start never really gets easier â€” you just get used to it. The routine helps: dark kitchen, coffee on, aprons tied. Muscle memory takes over before the brain is fully awake. The pre-ferments started the previous evening are checked first: the sourdough levain, the poolish for the baguettes, the overnight focaccia dough.</p>
 
-            <h2>4:15am — First Loaves Into the Oven</h2>
-            <p>The sourdough loaves shaped and refrigerated overnight go in first. The cold retard means they hold their structure beautifully, and the long fermentation develops a depth of flavour you cannot rush. A burst of steam hits the deck oven as each cast-iron pot is loaded. Within minutes, the kitchen fills with the smell of caramelising crust. This — the smell of the first bake — is why every one of our bakers says they would not trade this job.</p>
+            <h2>4:15am â€” First Loaves Into the Oven</h2>
+            <p>The sourdough loaves shaped and refrigerated overnight go in first. The cold retard means they hold their structure beautifully, and the long fermentation develops a depth of flavour you cannot rush. A burst of steam hits the deck oven as each cast-iron pot is loaded. Within minutes, the kitchen fills with the smell of caramelising crust. This â€” the smell of the first bake â€” is why every one of our bakers says they would not trade this job.</p>
 
-            <h2>5:30am — Laminated Dough and Viennoiserie</h2>
-            <p>While the bread bakes, the pastry section comes alive. Croissant dough laminated the afternoon before is rolled out and triangles are cut. Pain au chocolat, almond twists, kouign-amann — each item has its own proofing window and bake time. The croissants go onto the trays at 5:45am and will proof for two and a half hours before hitting the oven at 8:15, timed to come out fresh as the morning rush peaks.</p>
+            <h2>5:30am â€” Laminated Dough and Viennoiserie</h2>
+            <p>While the bread bakes, the pastry section comes alive. Croissant dough laminated the afternoon before is rolled out and triangles are cut. Pain au chocolat, almond twists, kouign-amann â€” each item has its own proofing window and bake time. The croissants go onto the trays at 5:45am and will proof for two and a half hours before hitting the oven at 8:15, timed to come out fresh as the morning rush peaks.</p>
 
-            <h2>7:00am — The Baked Goods Line the Trays</h2>
-            <p>Sourdough comes out first. Then baguettes, focaccia, and the enriched breakfast rolls. The pastry case fills in order of how long each item holds at its best — goods that stay well for an hour go in first, croissants last. The shop floor team arrives at 7:30 and the handover from bakers to front-of-house begins. Labels go on, prices are checked, the daily specials board is written.</p>
+            <h2>7:00am â€” The Baked Goods Line the Trays</h2>
+            <p>Sourdough comes out first. Then baguettes, focaccia, and the enriched breakfast rolls. The pastry case fills in order of how long each item holds at its best â€” goods that stay well for an hour go in first, croissants last. The shop floor team arrives at 7:30 and the handover from bakers to front-of-house begins. Labels go on, prices are checked, the daily specials board is written.</p>
 
-            <h2>8:00am — Doors Open</h2>
+            <h2>8:00am â€” Doors Open</h2>
             <p>The queue sometimes starts before we open. Regulars already know their order before they step inside. A flat white and a croissant. A sourdough half-loaf. A custom birthday cake pre-ordered three days ago. The morning rush lasts until about 10:30. By then the bakers have been on their feet for six hours, the first bake is mostly sold out, and the prep for tomorrow has already begun.</p>
 
             <h2>Why It Matters</h2>
-            <p>There is no shortcut to bread that tastes the way bread is supposed to taste. Long fermentation, proper shaping, natural steam — these take time, and time means starting in the dark. Every loaf on our shelves was shaped by hand before sunrise. We think that matters. Based on the queue out the door every morning, so do you.</p>
+            <p>There is no shortcut to bread that tastes the way bread is supposed to taste. Long fermentation, proper shaping, natural steam â€” these take time, and time means starting in the dark. Every loaf on our shelves was shaped by hand before sunrise. We think that matters. Based on the queue out the door every morning, so do you.</p>
           `
         },
 
@@ -438,25 +438,25 @@
           date: '28 May 2026',
           readTime: '6 min read',
           content: `
-            <p class="bpost-lead">Custom cakes are among our most popular offerings — and one of the most frequently misunderstood. Here is what our cake team wishes every customer knew before picking up the phone.</p>
+            <p class="bpost-lead">Custom cakes are among our most popular offerings â€” and one of the most frequently misunderstood. Here is what our cake team wishes every customer knew before picking up the phone.</p>
 
             <h2>1. We Need at Least 72 Hours</h2>
-            <p>A tiered celebration cake is not something we can turn around in a day. Between baking, levelling, filling, crumb-coating, chilling, final decorating, and setting time, we ask for a minimum of 72 hours from order to collection. For complex sculpted cakes or large multi-tier designs, a full week is better. Our busiest periods — Christmas, Valentine's Day, and the Easter weekend — book out weeks in advance. The earlier you contact us, the more options we can offer you.</p>
+            <p>A tiered celebration cake is not something we can turn around in a day. Between baking, levelling, filling, crumb-coating, chilling, final decorating, and setting time, we ask for a minimum of 72 hours from order to collection. For complex sculpted cakes or large multi-tier designs, a full week is better. Our busiest periods â€” Christmas, Valentine's Day, and the Easter weekend â€” book out weeks in advance. The earlier you contact us, the more options we can offer you.</p>
 
             <h2>2. Serving Sizes Are Bigger Than You Think</h2>
-            <p>A standard 8-inch two-layer round cake serves 20–24 people in dessert-sized slices. Most customers overestimate how much cake they need. As a rule: count your guest list accurately, divide by the serving guide we send you, then add 10% for second helpings. Coming to us with a realistic head count means we can help you choose the right size without waste — or, worse, running out.</p>
+            <p>A standard 8-inch two-layer round cake serves 20â€“24 people in dessert-sized slices. Most customers overestimate how much cake they need. As a rule: count your guest list accurately, divide by the serving guide we send you, then add 10% for second helpings. Coming to us with a realistic head count means we can help you choose the right size without waste â€” or, worse, running out.</p>
 
             <h2>3. Flavour Matching Is Worth the Conversation</h2>
-            <p>We offer tasting boxes for custom orders above three tiers so you can try sponge and filling combinations before committing. Our most popular combination is vanilla chiffon with lemon curd and Italian meringue buttercream — but we have over twenty options. Do not just pick what sounds good on paper: taste it. A celebration cake is a significant investment and the flavour should be as special as the design.</p>
+            <p>We offer tasting boxes for custom orders above three tiers so you can try sponge and filling combinations before committing. Our most popular combination is vanilla chiffon with lemon curd and Italian meringue buttercream â€” but we have over twenty options. Do not just pick what sounds good on paper: taste it. A celebration cake is a significant investment and the flavour should be as special as the design.</p>
 
             <h2>4. Design Complexity Affects the Price</h2>
-            <p>A single-tier cake with smooth buttercream and fresh flowers is priced very differently from a hand-painted four-tier cake with sugar florals and metallic detailing. When you enquire, we ask you to share reference images — not so we can copy someone else's work, but so we can give you an accurate quote and set realistic expectations. Our decorators are skilled and experienced, but some finishes require significantly more hours than others, and we will always be transparent about that.</p>
+            <p>A single-tier cake with smooth buttercream and fresh flowers is priced very differently from a hand-painted four-tier cake with sugar florals and metallic detailing. When you enquire, we ask you to share reference images â€” not so we can copy someone else's work, but so we can give you an accurate quote and set realistic expectations. Our decorators are skilled and experienced, but some finishes require significantly more hours than others, and we will always be transparent about that.</p>
 
             <h2>5. Collection vs. Delivery</h2>
-            <p>We offer professional delivery within a 15-mile radius for tiered cakes because the transportation of a stacked cake is genuinely risky without the right equipment and experience. If you are collecting, bring a completely flat surface in your vehicle — a boot is rarely flat enough for a four-tier cake. We will box and board the cake securely, but the journey home is your responsibility once you leave the shop. For important occasions, our delivery team handles transport and setup at your venue and we strongly recommend it.</p>
+            <p>We offer professional delivery within a 15-mile radius for tiered cakes because the transportation of a stacked cake is genuinely risky without the right equipment and experience. If you are collecting, bring a completely flat surface in your vehicle â€” a boot is rarely flat enough for a four-tier cake. We will box and board the cake securely, but the journey home is your responsibility once you leave the shop. For important occasions, our delivery team handles transport and setup at your venue and we strongly recommend it.</p>
 
             <h2>Still Have Questions?</h2>
-            <p>Our cake consultation team is available Monday to Friday at our Baker Street location. Book a 30-minute slot and come with ideas — or come with nothing and let us help you start from scratch. Great cakes start with a good conversation.</p>
+            <p>Our cake consultation team is available Monday to Friday at our Baker Street location. Book a 30-minute slot and come with ideas â€” or come with nothing and let us help you start from scratch. Great cakes start with a good conversation.</p>
           `
         },
 
@@ -469,22 +469,22 @@
             <p class="bpost-lead">Every loaf we bake starts with flour. We have always been particular about where ours comes from and why. Our head baker, who visits our supplier several times a year, explains the decision.</p>
 
             <h2>What Is Stone Milling?</h2>
-            <p>In stone milling, the whole wheat grain is crushed between two large rotating stones, preserving the bran and germ alongside the starchy endosperm. The heat generated during milling is significantly lower than in industrial roller milling, which means the oils in the germ and the volatile aromatic compounds remain largely intact. You end up with flour that still smells and tastes of wheat — which sounds obvious, but is not how most commercial flour works.</p>
+            <p>In stone milling, the whole wheat grain is crushed between two large rotating stones, preserving the bran and germ alongside the starchy endosperm. The heat generated during milling is significantly lower than in industrial roller milling, which means the oils in the germ and the volatile aromatic compounds remain largely intact. You end up with flour that still smells and tastes of wheat â€” which sounds obvious, but is not how most commercial flour works.</p>
 
             <h2>The Industrial Alternative</h2>
-            <p>Modern roller mills process grain at high speed through a series of steel cylinders that progressively strip away the outer bran and germ layers to produce very white, very stable, very long-shelf-life flour. The result is consistent, cheap, and almost entirely flavourless. Many problems that bakers solve with additives and improvers — pale crust, dense crumb, rapid staling — are simply not present when you start with better flour.</p>
+            <p>Modern roller mills process grain at high speed through a series of steel cylinders that progressively strip away the outer bran and germ layers to produce very white, very stable, very long-shelf-life flour. The result is consistent, cheap, and almost entirely flavourless. Many problems that bakers solve with additives and improvers â€” pale crust, dense crumb, rapid staling â€” are simply not present when you start with better flour.</p>
 
             <h2>What You Actually Taste</h2>
             <p>Stone-milled flour <em>tastes like something</em>. If you have ever noticed that our sourdough has a slightly nutty, almost sweet finish even without added flavours, that is the flour. The natural sugars and amino acids left intact by lower-heat milling contribute to better Maillard browning in the crust and a more complex flavour in the crumb. You taste the difference without necessarily knowing what you are tasting.</p>
 
             <h2>Our Supplier</h2>
-            <p>We source from a small family mill in Lincolnshire that has been stone-milling British heritage wheat varieties — including Maris Widgeon and Emmer — for three generations. The wheat is grown on mineral-rich chalk-belt soil and milled to our specific extraction rate. We collect every four weeks, which means our flour is never more than a few weeks old. For context, most commercial flour sits in a warehouse for months before reaching a bakery.</p>
+            <p>We source from a small family mill in Lincolnshire that has been stone-milling British heritage wheat varieties â€” including Maris Widgeon and Emmer â€” for three generations. The wheat is grown on mineral-rich chalk-belt soil and milled to our specific extraction rate. We collect every four weeks, which means our flour is never more than a few weeks old. For context, most commercial flour sits in a warehouse for months before reaching a bakery.</p>
 
             <h2>The Cost Argument</h2>
-            <p>Stone-milled British heritage flour costs roughly three times what commodity flour costs. For a small bakery running on tight margins, that is not a trivial decision. But flour is present in almost everything we make — it is the one ingredient we cannot compromise on. The cost shows up in the price of a loaf. We think it is worth it. Judging by the fact that our sourdough sells out by 10am most mornings, so do you.</p>
+            <p>Stone-milled British heritage flour costs roughly three times what commodity flour costs. For a small bakery running on tight margins, that is not a trivial decision. But flour is present in almost everything we make â€” it is the one ingredient we cannot compromise on. The cost shows up in the price of a loaf. We think it is worth it. Judging by the fact that our sourdough sells out by 10am most mornings, so do you.</p>
 
             <blockquote>
-              <p>"You can feel the difference in the dough before it even goes into the oven. It has more life in it. More texture. Better extensibility. The bread almost makes itself." — Head Baker, Stackly</p>
+              <p>"You can feel the difference in the dough before it even goes into the oven. It has more life in it. More texture. Better extensibility. The bread almost makes itself." â€” Head Baker, Stackly</p>
             </blockquote>
           `
         },
@@ -495,13 +495,13 @@
           date: '14 May 2026',
           readTime: '5 min read',
           content: `
-            <p class="bpost-lead">We have been asked for this recipe more times than we can count. After years of perfecting our chocolate chip cookie — crisp at the edge, deeply chewy in the centre, and intensely chocolatey all the way through — we are sharing every variable.</p>
+            <p class="bpost-lead">We have been asked for this recipe more times than we can count. After years of perfecting our chocolate chip cookie â€” crisp at the edge, deeply chewy in the centre, and intensely chocolatey all the way through â€” we are sharing every variable.</p>
 
             <h2>Brown Butter First (This Is Non-Negotiable)</h2>
-            <p>Melt 200g unsalted butter in a light-bottomed saucepan over medium heat. Stir frequently as it foams, then watch for golden-brown solids forming on the base and a toasty, nutty aroma — the smell of shortbread. The moment you smell it, pull it off the heat and pour into your mixing bowl. Let it cool for 20 minutes. Brown butter does in 5 minutes what months of age does to a good cheese: it concentrates and deepens the flavour dramatically.</p>
+            <p>Melt 200g unsalted butter in a light-bottomed saucepan over medium heat. Stir frequently as it foams, then watch for golden-brown solids forming on the base and a toasty, nutty aroma â€” the smell of shortbread. The moment you smell it, pull it off the heat and pour into your mixing bowl. Let it cool for 20 minutes. Brown butter does in 5 minutes what months of age does to a good cheese: it concentrates and deepens the flavour dramatically.</p>
 
             <h2>The Sugar Ratio Is Everything</h2>
-            <p>Use <strong>150g dark brown sugar</strong> to <strong>80g caster sugar</strong>. The higher proportion of brown sugar provides molasses, which is hygroscopic — it pulls moisture from the environment and keeps the cookie chewy long after baking. Caster sugar contributes crispness at the edges. Do not substitute golden caster for white; the flavour is meaningfully different. Do not reduce the brown sugar to "cut back on sweetness" — it also controls texture.</p>
+            <p>Use <strong>150g dark brown sugar</strong> to <strong>80g caster sugar</strong>. The higher proportion of brown sugar provides molasses, which is hygroscopic â€” it pulls moisture from the environment and keeps the cookie chewy long after baking. Caster sugar contributes crispness at the edges. Do not substitute golden caster for white; the flavour is meaningfully different. Do not reduce the brown sugar to "cut back on sweetness" â€” it also controls texture.</p>
 
             <h2>The Full Recipe</h2>
             <ul>
@@ -517,11 +517,11 @@
             </ul>
             <p>Beat the brown butter with both sugars until combined. Add the eggs, extra yolk, and vanilla; beat for 2 full minutes until the mixture thickens slightly and lightens in colour. Fold in the flour, bicarb, and salt, then fold in the chocolate. The dough will be soft and quite loose.</p>
 
-            <h2>Chill the Dough — Not Optional</h2>
-            <p>Cover the dough and refrigerate for at least 24 hours, ideally 48–72 hours. During this rest, the flour hydrates fully and the sugars break down in ways that intensify flavour and dramatically improve texture. A cookie baked from fresh dough tastes flat and cakey by comparison. This cold rest is where the magic actually happens — do not skip it.</p>
+            <h2>Chill the Dough â€” Not Optional</h2>
+            <p>Cover the dough and refrigerate for at least 24 hours, ideally 48â€“72 hours. During this rest, the flour hydrates fully and the sugars break down in ways that intensify flavour and dramatically improve texture. A cookie baked from fresh dough tastes flat and cakey by comparison. This cold rest is where the magic actually happens â€” do not skip it.</p>
 
             <h2>Bake to Underdone</h2>
-            <p>Preheat to 190°C (fan 175°C). Scoop 65g balls of <em>cold dough</em> onto a lined tray, spacing them 8cm apart. Bake for exactly 11 minutes. They will look underdone — pale in the centre, barely set at the edges. This is correct. Remove from the oven and leave on the tray for 10 full minutes; the cookies continue cooking on the residual heat and set to the perfect chewy consistency. If you wait until they look done in the oven, they will be hard once cool.</p>
+            <p>Preheat to 190Â°C (fan 175Â°C). Scoop 65g balls of <em>cold dough</em> onto a lined tray, spacing them 8cm apart. Bake for exactly 11 minutes. They will look underdone â€” pale in the centre, barely set at the edges. This is correct. Remove from the oven and leave on the tray for 10 full minutes; the cookies continue cooking on the residual heat and set to the perfect chewy consistency. If you wait until they look done in the oven, they will be hard once cool.</p>
 
             <h2>Finish With Flaky Salt</h2>
             <p>Immediately after removing from the oven, press a small pinch of Maldon sea salt flakes onto each cookie. Salt amplifies sweetness and creates contrast that makes every bite more complex. It is a 10-second step that makes a noticeable difference. Do not skip it.</p>
@@ -534,13 +534,13 @@
           date: '8 May 2026',
           readTime: '4 min read',
           content: `
-            <p class="bpost-lead">Every summer we refresh part of the menu with seasonal flavours that reflect what is at its peak in British fields and gardens right now. This July we have five new additions — all limited edition, all available only while seasonal ingredients last.</p>
+            <p class="bpost-lead">Every summer we refresh part of the menu with seasonal flavours that reflect what is at its peak in British fields and gardens right now. This July we have five new additions â€” all limited edition, all available only while seasonal ingredients last.</p>
 
             <h2>Elderflower &amp; Lemon Tart</h2>
-            <p>A buttery shortcrust shell filled with a sharp lemon curd enriched with elderflower cordial made from hand-picked flowers sourced from a farm in the Cotswolds. The floral note is subtle — it lifts the citrus rather than dominating it. Finished with Italian meringue and a blowtorch scorch. Available as individual tartlets or as a full 23cm sharing tart.</p>
+            <p>A buttery shortcrust shell filled with a sharp lemon curd enriched with elderflower cordial made from hand-picked flowers sourced from a farm in the Cotswolds. The floral note is subtle â€” it lifts the citrus rather than dominating it. Finished with Italian meringue and a blowtorch scorch. Available as individual tartlets or as a full 23cm sharing tart.</p>
 
             <h2>Strawberry &amp; Cardamom Danish</h2>
-            <p>Our laminated Danish pastry dough folded around a filling of whipped cream cheese, macerated British strawberries from a farm in Kent, and freshly ground cardamom. The spice comes through on the finish and gives the pastry a warmth that perfectly balances the acidity of the fruit. Available daily from opening while stocks last — these tend to be gone by 10am.</p>
+            <p>Our laminated Danish pastry dough folded around a filling of whipped cream cheese, macerated British strawberries from a farm in Kent, and freshly ground cardamom. The spice comes through on the finish and gives the pastry a warmth that perfectly balances the acidity of the fruit. Available daily from opening while stocks last â€” these tend to be gone by 10am.</p>
 
             <h2>Lemon &amp; Basil Cake</h2>
             <p>Three layers of lemon chiffon sponge, each brushed with basil-infused sugar syrup and filled with lemon curd and mascarpone cream. The basil does something unexpected: it adds an herby, almost peppery note that makes each bite more layered than a straight lemon cake. Decorated with candied lemon slices and micro basil. Available as a full celebration cake (pre-order required) or by the slice in both locations daily.</p>
@@ -549,10 +549,10 @@
             <p>Our classic all-butter shortbread recipe with dried culinary lavender pressed into each biscuit before baking. The lavender is sourced from a grower in Sussex and has a clean, non-soapy flavour that works perfectly against the richness of the butter and the sweetness of the caster sugar. Sold in bags of 6. An ideal summer gift.</p>
 
             <h2>Peach &amp; Almond Mille-Feuille</h2>
-            <p>Three layers of rough-puff pastry baked with sugar between the layers for a caramelised crunch, filled with almond cream and topped with thinly sliced fresh peaches and a peach glaze. One of the more technically demanding pastries we make — and consistently one of the most requested. Only 18 made per day, per location.</p>
+            <p>Three layers of rough-puff pastry baked with sugar between the layers for a caramelised crunch, filled with almond cream and topped with thinly sliced fresh peaches and a peach glaze. One of the more technically demanding pastries we make â€” and consistently one of the most requested. Only 18 made per day, per location.</p>
 
             <h2>How Long Will They Be Available?</h2>
-            <p>All five specials are on the menu throughout July. If we sell out early on a given day, we will update our social channels. The elderflower tart and strawberry Danish in particular depend on seasonal ingredient availability, so if you want them, do not wait too long. Once the British elderflower season ends, so does the tart — and it does not come back until next summer.</p>
+            <p>All five specials are on the menu throughout July. If we sell out early on a given day, we will update our social channels. The elderflower tart and strawberry Danish in particular depend on seasonal ingredient availability, so if you want them, do not wait too long. Once the British elderflower season ends, so does the tart â€” and it does not come back until next summer.</p>
           `
         }
       };
@@ -564,10 +564,11 @@
       document.getElementById('bpostBreadTitle').textContent = post.title;
       document.getElementById('bpostTag').textContent = post.tag;
       document.getElementById('bpostTitle').textContent = post.title;
-      document.getElementById('bpostMeta').textContent = post.date + ' · ' + post.readTime;
+      document.getElementById('bpostMeta').textContent = post.date + ' Â· ' + post.readTime;
       document.getElementById('bpostContent').innerHTML = post.content;
       document.title = post.title + ' | Stackly Artisan Bakery';
     })();
   </script>
 </body>
 </html>
+
