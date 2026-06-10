@@ -42,6 +42,57 @@
       z-index: 1;
       pointer-events: none;
     }
+
+    /* ── 3D Panorama Slider ──────────────────────────────────── */
+    .panorama-section {
+      padding: 80px 0 64px;
+      background: var(--cream);
+      overflow: hidden;
+    }
+    .panorama-section .section-header {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .panoramaSwiper {
+      width: 100%;
+      padding: 40px 0 56px;
+    }
+    .panoramaSwiper .swiper-slide {
+      width: 300px;
+      height: 280px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(107,58,42,0.18);
+      transition: width 0.4s ease;
+    }
+    .panoramaSwiper .swiper-slide-active {
+      width: 350px;
+    }
+    .panoramaSwiper .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .panoramaSwiper .swiper-slide-active img { transform: scale(1.06); }
+    .panoramaSwiper .swiper-pagination { bottom: 16px; }
+    .panoramaSwiper .swiper-pagination-bullet {
+      background: var(--primary);
+      opacity: 0.35;
+      width: 8px; height: 8px;
+      transition: all 0.3s;
+    }
+    .panoramaSwiper .swiper-pagination-bullet-active {
+      background: var(--accent);
+      opacity: 1;
+      width: 24px;
+      border-radius: 4px;
+    }
+    @media (max-width: 600px) {
+      .panoramaSwiper .swiper-slide { width: 220px; height: 210px; }
+      .panoramaSwiper .swiper-slide-active { width: 270px; }
+    }
   </style>
 </head>
 <body>
@@ -210,6 +261,33 @@
       </div>
       <div class="hero-wave">
         <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#fff8ee"/></svg>
+      </div>
+    </section>
+
+    <!-- 3D Panorama Slider -->
+    <section class="panorama-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Our Creations</span>
+          <h2 class="section-title">Fresh From <em>the Oven</em></h2>
+        </div>
+      </div>
+      <div class="swiper panoramaSwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="images/pastry_croissant.webp" alt="Butter Croissant" /></div>
+          <div class="swiper-slide"><img src="images/cake_choc.webp" alt="Chocolate Cake" /></div>
+          <div class="swiper-slide"><img src="images/bread_sourdough.webp" alt="Sourdough Bread" /></div>
+          <div class="swiper-slide"><img src="images/cookie_choc.webp" alt="Chocolate Cookies" /></div>
+          <div class="swiper-slide"><img src="images/muffin_blueberry.webp" alt="Blueberry Muffins" /></div>
+          <div class="swiper-slide"><img src="images/brownie.webp" alt="Brownies" /></div>
+          <div class="swiper-slide"><img src="images/cake_vanilla.webp" alt="Vanilla Cake" /></div>
+          <div class="swiper-slide"><img src="images/pastry_danish.webp" alt="Danish Pastry" /></div>
+          <div class="swiper-slide"><img src="images/bread_focaccia.webp" alt="Focaccia" /></div>
+          <div class="swiper-slide"><img src="images/pastry_eclair.webp" alt="Eclair" /></div>
+          <div class="swiper-slide"><img src="images/cupcake_vanilla.webp" alt="Vanilla Cupcake" /></div>
+          <div class="swiper-slide"><img src="images/bread_baguette.webp" alt="Baguette" /></div>
+        </div>
+        <div class="swiper-pagination"></div>
       </div>
     </section>
 
@@ -518,6 +596,30 @@
       autoplay: { delay: 3500, disableOnInteraction: false },
       allowTouchMove: false,
       a11y: false
+    });
+
+    new Swiper('.panoramaSwiper', {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      loop: true,
+      speed: 700,
+      coverflowEffect: {
+        rotate: 45,
+        stretch: 0,
+        depth: 120,
+        modifier: 1,
+        slideShadows: true
+      },
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: '.panoramaSwiper .swiper-pagination',
+        clickable: true
+      }
     });
   </script>
 </body>
