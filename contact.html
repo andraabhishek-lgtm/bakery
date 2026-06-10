@@ -327,9 +327,10 @@
       transition: opacity var(--transition), transform var(--transition);
     }
     .social-chip:hover { opacity: 0.85; transform: translateY(-2px); }
-    .social-chip.ig { background: #E1306C; color: white; }
-    .social-chip.fb { background: #1877F2; color: white; }
-    .social-chip.pt { background: #E60023; color: white; }
+    .social-chip.ig { background: var(--primary-dark); color: var(--white); }
+    .social-chip.fb { background: var(--primary);      color: var(--white); }
+    .social-chip.pt { background: var(--accent);       color: var(--text-dark); }
+    .social-chip:hover { opacity: 1; filter: brightness(0.9); transform: translateY(-2px); }
 
     /* ── FAQ section ─────────────────────────────────────────── */
     .faq-section { padding: 88px 0; background: var(--white); }
@@ -451,6 +452,16 @@
     }
     .location-detail span:first-child { flex-shrink: 0; margin-top: 1px; }
 
+    /* ── Field inline errors ────────────────────────────────── */
+    .cf-err {
+      display: block;
+      font-size: 0.74rem;
+      color: #E53E3E;
+      margin-top: 5px;
+      min-height: 1em;
+      line-height: 1.3;
+    }
+
     /* ── Responsive ──────────────────────────────────────────── */
     @media (max-width: 1000px) {
       .info-cards-grid { grid-template-columns: repeat(2, 1fr); }
@@ -537,6 +548,7 @@
           </div>
         </div>
         <a href="our-story.html" class="nav-link">Our Story</a>
+        <a href="blog.html" class="nav-link">Blog</a>
         <a href="contact.html" class="nav-link active">Contact</a>
       </nav>
       <div class="header-actions">
@@ -659,20 +671,25 @@
             <div class="form-row-2">
               <div class="cfield">
                 <label for="cfName">First Name</label>
-                <input type="text" id="cfName" placeholder="Sophie" autocomplete="given-name" />
+                <input type="text" id="cfName" placeholder="Sophie" autocomplete="given-name" maxlength="16" />
+                <span class="cf-err" id="cfNameErr"></span>
               </div>
               <div class="cfield">
                 <label for="cfLastName">Last Name</label>
-                <input type="text" id="cfLastName" placeholder="Duval" autocomplete="family-name" />
+                <input type="text" id="cfLastName" placeholder="Duval" autocomplete="family-name" maxlength="16" />
+                <span class="cf-err" id="cfLastNameErr"></span>
               </div>
             </div>
             <div class="cfield">
               <label for="cfEmail">Email Address</label>
               <input type="email" id="cfEmail" placeholder="hello@example.com" autocomplete="email" />
+              <span class="cf-err" id="cfEmailErr"></span>
             </div>
             <div class="cfield">
-              <label for="cfPhone">Phone (optional)</label>
-              <input type="tel" id="cfPhone" placeholder="+44 207 000 0000" autocomplete="tel" />
+              <label for="cfPhone">Phone</label>
+              <input type="tel" id="cfPhone" placeholder="10-digit number" autocomplete="tel"
+                     inputmode="numeric" maxlength="10" />
+              <span class="cf-err" id="cfPhoneErr"></span>
             </div>
             <div class="cfield">
               <label for="cfSubject">Subject</label>
@@ -691,6 +708,7 @@
             <div class="cfield">
               <label for="cfMessage">Message</label>
               <textarea id="cfMessage" placeholder="Tell us how we can help — be as detailed as you like…"></textarea>
+              <span class="cf-err" id="cfMessageErr"></span>
             </div>
             <p class="form-note">By submitting this form you agree to our Privacy Policy. We never share your data with third parties.</p>
             <button type="submit" class="btn btn-primary btn-submit">
@@ -897,7 +915,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="shop.html">Shop</a></li>
           <li><a href="our-story.html">Our Story</a></li>
-          <li><a href="#">Blog</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
@@ -961,17 +979,116 @@
       });
     });
 
-    /* ── Contact form submit ── */
-    document.getElementById('contactForm').addEventListener('submit', (e) => {
+    /* ── Phone: digits only, max 10 ── */
+    (function() {
+      const ph = document.getElementById('cfPhone');
+      ph.addEventListener('keydown', function(e) {
+        if (e.key.length === 1 && !/\d/.test(e.key)) e.preventDefault();
+      });
+      ph.addEventListener('input', function() {
+        const c = this.value.replace(/\D/g, '').slice(0, 10);
+        if (this.value !== c) this.value = c;
+      });
+      ph.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const t = (e.clipboardData || window.clipboardData).getData('text');
+        const c = t.replace(/\D/g, '').slice(0, 10 - this.value.length);
+        document.execCommand('insertText', false, c);
+      });
+    })();
+
+    /* ── Name fields: letters only, max 16 ── */
+    ['cfName', 'cfLastName'].forEach(function(id) {
+      const el = document.getElementById(id);
+      el.addEventListener('keydown', function(e) {
+        if (e.key.length === 1 && !/[A-Za-z]/.test(e.key)) e.preventDefault();
+      });
+      el.addEventListener('input', function() {
+        const c = this.value.replace(/[^A-Za-z]/g, '').slice(0, 16);
+        if (this.value !== c) this.value = c;
+      });
+      el.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const t = (e.clipboardData || window.clipboardData).getData('text');
+        const c = t.replace(/[^A-Za-z]/g, '').slice(0, 16 - this.value.length);
+        document.execCommand('insertText', false, c);
+      });
+    });
+
+    /* ── Field definitions + validation rules ── */
+    var CF = {
+      cfName:     { check: function(v) { return v.trim().length > 0 ? '' : 'First name is required.'; } },
+      cfLastName: { check: function(v) { return v.trim().length > 0 ? '' : 'Last name is required.'; } },
+      cfEmail:    { check: function(v) {
+        if (!v.trim()) return 'Email address is required.';
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Please enter a valid email address.';
+      }},
+      cfPhone:    { check: function(v) { return /^\d{10}$/.test(v.trim()) ? '' : 'Phone must be exactly 10 digits.'; } },
+      cfMessage:  { check: function(v) { return v.trim().length > 0 ? '' : 'Message is required.'; } }
+    };
+
+    Object.keys(CF).forEach(function(id) {
+      CF[id].el  = document.getElementById(id);
+      CF[id].err = document.getElementById(id + 'Err');
+    });
+
+    function cfMark(id, msg) {
+      var f = CF[id];
+      f.el.style.borderColor = msg ? '#E53E3E' : '';
+      f.el.style.boxShadow   = msg ? '0 0 0 3px rgba(229,62,62,0.12)' : '';
+      if (f.err) f.err.textContent = msg;
+    }
+
+    function cfValidate(id) {
+      var msg = CF[id].check(CF[id].el.value);
+      cfMark(id, msg);
+      return !msg;
+    }
+
+    /* Real-time validation */
+    Object.keys(CF).forEach(function(id) {
+      CF[id].el.addEventListener('input', function() { cfValidate(id); });
+      CF[id].el.addEventListener('blur',  function() { cfValidate(id); });
+    });
+
+    /* ── Form submit ── */
+    var cfSubmitting = false;
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('[type="submit"]');
+      if (cfSubmitting) return;
+
+      var firstInvalid = null;
+      var allOk = true;
+
+      Object.keys(CF).forEach(function(id) {
+        var ok = cfValidate(id);
+        if (!ok && !firstInvalid) firstInvalid = CF[id].el;
+        if (!ok) allOk = false;
+      });
+
+      if (!allOk) {
+        showToast('Please fill all required fields.', 'error');
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      cfSubmitting = true;
+      var btn = this.querySelector('[type="submit"]');
+      var origHTML = btn.innerHTML;
       btn.textContent = 'Sending…';
       btn.disabled = true;
-      setTimeout(() => {
-        showToast('Message sent! We\'ll reply within 24 hours. 🥐', 'success');
-        e.target.reset();
-        btn.innerHTML = 'Send Message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="17" height="17"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+
+      var form = this;
+      setTimeout(function() {
+        showToast('Message sent successfully.', 'success');
+        form.reset();
+        Object.keys(CF).forEach(function(id) {
+          cfMark(id, '');
+        });
+        btn.innerHTML = origHTML;
         btn.disabled = false;
+        cfSubmitting = false;
       }, 1200);
     });
   </script>

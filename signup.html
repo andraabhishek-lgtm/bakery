@@ -541,7 +541,7 @@
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                 </svg>
                 <input class="field-input" type="text" id="firstName" name="firstName"
-                       placeholder="Sophie" autocomplete="given-name" />
+                       placeholder="Sophie" autocomplete="given-name" maxlength="16" />
               </div>
               <span class="field-error" id="firstNameErr">Please enter your first name.</span>
             </div>
@@ -552,7 +552,7 @@
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                 </svg>
                 <input class="field-input" type="text" id="lastName" name="lastName"
-                       placeholder="Duval" autocomplete="family-name" />
+                       placeholder="Duval" autocomplete="family-name" maxlength="16" />
               </div>
               <span class="field-error" id="lastNameErr">Please enter your last name.</span>
             </div>
@@ -743,13 +743,20 @@
 
     /* ── Letters-only filter for name fields ──────────────── */
     function lettersOnly(input) {
-      input.addEventListener('input', () => {
-        const pos = input.selectionStart;
-        const cleaned = input.value.replace(/[^A-Za-z\s'\-]/g, '');
-        if (input.value !== cleaned) {
-          input.value = cleaned;
-          input.setSelectionRange(pos - 1, pos - 1);
-        }
+      input.setAttribute('maxlength', '16');
+      input.addEventListener('keydown', function(e) {
+        const allowed = /^[A-Za-z]$/;
+        if (!allowed.test(e.key) && e.key.length === 1) e.preventDefault();
+      });
+      input.addEventListener('input', function() {
+        const cleaned = this.value.replace(/[^A-Za-z]/g, '').slice(0, 16);
+        if (this.value !== cleaned) this.value = cleaned;
+      });
+      input.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text');
+        const cleaned = text.replace(/[^A-Za-z]/g, '').slice(0, 16 - this.value.length);
+        document.execCommand('insertText', false, cleaned);
       });
     }
     lettersOnly(document.getElementById('firstName'));
@@ -816,13 +823,20 @@
       const terms    = document.getElementById('agreeTerms');
       const emailRe  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      if (!first.value.trim()) {
-        setError(first, document.getElementById('firstNameErr'), 'Please enter your first name.', true);
+      const alphaRe = /^[A-Za-z]+$/;
+      if (!first.value || !alphaRe.test(first.value) || first.value.length > 16) {
+        const msg = !first.value ? 'Please enter your first name.'
+          : first.value.length > 16 ? 'First name must be 16 characters or fewer.'
+          : 'First name must contain letters only.';
+        setError(first, document.getElementById('firstNameErr'), msg, true);
         valid = false;
       } else { setError(first, document.getElementById('firstNameErr'), '', false); }
 
-      if (!last.value.trim()) {
-        setError(last, document.getElementById('lastNameErr'), 'Please enter your last name.', true);
+      if (!last.value || !alphaRe.test(last.value) || last.value.length > 16) {
+        const msg = !last.value ? 'Please enter your last name.'
+          : last.value.length > 16 ? 'Last name must be 16 characters or fewer.'
+          : 'Last name must contain letters only.';
+        setError(last, document.getElementById('lastNameErr'), msg, true);
         valid = false;
       } else { setError(last, document.getElementById('lastNameErr'), '', false); }
 
@@ -853,14 +867,25 @@
       btn.textContent = 'Creating account…';
       btn.disabled = true;
 
-      setTimeout(() => {
-        localStorage.setItem('stackly_user', JSON.stringify({
-          email: emailEl.value.trim(),
-          name: firstEl.value.trim() + ' ' + lastEl.value.trim()
-        }));
-        showToast('Account created! Welcome to Stackly 🎉');
-        setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
-      }, 900);
+      const toast = document.getElementById('signupToast');
+      toast.textContent = 'Creating account...';
+      toast.classList.add('show');
+
+      setTimeout(function() {
+        try {
+          localStorage.setItem('stackly_user', JSON.stringify({
+            email: email.value.trim(),
+            name: first.value.trim() + ' ' + last.value.trim(),
+            role: 'customer'
+          }));
+        } catch(e) {}
+
+        toast.textContent = 'Account created successfully.';
+
+        setTimeout(function() {
+          window.location.href = 'login.html';
+        }, 1500);
+      }, 1200);
     });
 
     /* ── Clear errors on input ─────────────────────────────── */

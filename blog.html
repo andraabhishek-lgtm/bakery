@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Stackly Artisan Bakery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Blog Hero ────────────────────────────────────────────── */
+    .blog-hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      padding: 128px 0 96px;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      top: -200px; right: -80px;
+      pointer-events: none;
+    }
+    .blog-hero::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(232,168,56,0.08);
+      bottom: -100px; left: 10%;
+      pointer-events: none;
+    }
+    .breadcrumb {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color var(--transition); }
+    .breadcrumb a:hover { color: var(--accent-light); }
+    .breadcrumb span { margin: 0 8px; }
+    .blog-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin: 0 0 18px;
+      max-width: 600px;
+    }
+    .blog-hero h1 em { font-style: italic; color: var(--accent-light); }
+    .blog-hero p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 480px;
+      line-height: 1.75;
+    }
+
+    /* ── Blog grid ───────────────────────────────────────────── */
+    .blog-main { padding: 88px 0; background: var(--cream); }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 0;
+    }
+    .blog-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .blog-card-img {
+      height: 200px;
+      background: var(--cream-deeper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      border-bottom: 1px solid var(--border-light);
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-card-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, rgba(107,58,42,0.03) 0, rgba(107,58,42,0.03) 1px, transparent 1px, transparent 16px);
+    }
+    .blog-card-img span { z-index: 1; }
+    .blog-card-body { padding: 28px 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .blog-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      background: var(--cream-dark);
+      padding: 4px 12px;
+      border-radius: 50px;
+      width: fit-content;
+    }
+    .blog-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.4;
+    }
+    .blog-card-excerpt {
+      font-size: 0.87rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      flex: 1;
+    }
+    .blog-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.76rem;
+      color: var(--text-light);
+      padding-top: 12px;
+      border-top: 1px solid var(--border-light);
+    }
+    .blog-read-link {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color var(--transition);
+    }
+    .blog-read-link:hover { border-color: var(--primary); }
+
+    /* ── Newsletter strip ────────────────────────────────────── */
+    .blog-newsletter {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      padding: 72px 0;
+      text-align: center;
+    }
+    .blog-newsletter h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .blog-newsletter h2 em { font-style: italic; color: var(--accent-light); }
+    .blog-newsletter p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 32px;
+    }
+    .newsletter-row {
+      display: flex;
+      gap: 12px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .newsletter-input {
+      flex: 1;
+      height: 50px;
+      padding: 0 18px;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-family: 'Lato', sans-serif;
+      color: var(--white);
+      outline: none;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.45); }
+    .newsletter-input:focus { border-color: var(--accent-light); background: rgba(255,255,255,0.18); }
+    .newsletter-btn {
+      height: 50px;
+      padding: 0 28px;
+      background: var(--accent);
+      color: var(--text-dark);
+      border: none;
+      border-radius: 50px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background var(--transition);
+    }
+    .newsletter-btn:hover { background: var(--accent-light); }
+
+    /* ── Hero Swiper ────────────────────────────────────────── */
+    .blog-hero-swiper-wrap { margin-top: 44px; }
+    .blogHeroSwiper { overflow: hidden; border-radius: 14px; }
+    .blogHeroSwiper .swiper-slide { border-radius: 12px; overflow: hidden; }
+    .blogHeroSwiper .swiper-slide img {
+      width: 100%; height: 200px; object-fit: cover; display: block;
+      transition: transform 0.4s ease;
+    }
+    .blogHeroSwiper .swiper-slide:hover img { transform: scale(1.05); }
+    .blog-hero .swiper-pagination { margin-top: 16px; position: static; display: flex; justify-content: center; gap: 6px; }
+    .blog-hero .swiper-pagination-bullet { background: rgba(255,255,255,0.4); opacity: 1; width: 8px; height: 8px; border-radius: 50%; transition: all 0.3s; }
+    .blog-hero .swiper-pagination-bullet-active { background: var(--accent); width: 24px; border-radius: 4px; }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .blog-hero { padding: 96px 0 72px; }
+      .blog-main { padding: 60px 0; }
+      .blog-newsletter { padding: 52px 0; }
+    }
+    @media (max-width: 560px) {
+      .blog-grid { grid-template-columns: 1fr; }
+      .newsletter-row { flex-direction: column; }
+      .newsletter-btn { width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .blog-hero { padding: 72px 0 52px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <span>🎂 Free delivery on orders over $50 &nbsp;|&nbsp; Use code <strong>FRESH10</strong> for 10% off your first order</span>
+    <button class="announcement-close" aria-label="Close">&times;</button>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner container">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="logo-group">
+        <a href="index.html" class="logo">
+          <img src="images/logo.webp" class="logo-icon" alt="">
+          <div class="logo-text">
+            <span class="logo-name">Stackly</span>
+            <span class="logo-tagline">Artisan Bakery</span>
+          </div>
+        </a>
+        <div class="logo-badge">
+          <span>Baked fresh daily</span>
+          <span>Est. 2012 · London</span>
+        </div>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="shop.html" class="nav-link">Shop</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link">Categories <span class="chevron">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="shop.html?cat=cakes">Cakes &amp; Tarts</a>
+            <a href="shop.html?cat=breads">Breads &amp; Rolls</a>
+            <a href="shop.html?cat=pastries">Pastries</a>
+            <a href="shop.html?cat=cookies">Cookies</a>
+            <a href="shop.html?cat=cupcakes">Cupcakes</a>
+            <a href="shop.html?cat=seasonal">Seasonal Specials</a>
+          </div>
+        </div>
+        <a href="our-story.html" class="nav-link">Our Story</a>
+        <a href="blog.html" class="nav-link active">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn search-btn" id="searchToggle" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" id="cartToggle" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <a href="login.html" class="header-login-btn" aria-label="Sign In">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="btn-label">Sign In</span>
+        </a>
+      </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <div class="container">
+        <input type="text" class="search-input" placeholder="Search for croissants, sourdough, cakes..." id="searchInput" />
+        <button class="search-submit">Search</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>Your cart is empty</p>
+        <a href="shop.html" class="btn btn-primary btn-sm">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+      <p class="cart-note">Shipping &amp; taxes calculated at checkout</p>
+      <a href="#" class="btn btn-primary btn-full">Checkout</a>
+      <a href="shop.html" class="btn btn-outline btn-full">Continue Shopping</a>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- ── Blog Hero ─────────────────────────────────────────── -->
+    <section class="blog-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a><span>/</span> Blog
+        </nav>
+        <h1>From Our <em>Bakery</em><br />to Your Table</h1>
+        <p>Recipes, baking tips, seasonal stories and the craft behind every loaf — straight from our ovens.</p>
+        <div class="blog-hero-swiper-wrap">
+          <div class="swiper blogHeroSwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><img src="images/pastry_croissant.webp" alt="Butter Croissant" loading="lazy" /></div>
+              <div class="swiper-slide"><img src="images/cake_choc.webp" alt="Chocolate Cake" loading="lazy" /></div>
+              <div class="swiper-slide"><img src="images/bread_sourdough.webp" alt="Sourdough Bread" loading="lazy" /></div>
+              <div class="swiper-slide"><img src="images/cookie_choc.webp" alt="Chocolate Cookies" loading="lazy" /></div>
+              <div class="swiper-slide"><img src="images/donut_glazed.webp" alt="Glazed Donuts" loading="lazy" /></div>
+              <div class="swiper-slide"><img src="images/brownie.webp" alt="Brownies" loading="lazy" /></div>
+              <div class="swiper-slide"><img src="images/muffin_blueberry.webp" alt="Blueberry Muffins" loading="lazy" /></div>
+              <div class="swiper-slide"><img src="images/cake_vanilla.webp" alt="Vanilla Cake" loading="lazy" /></div>
+              <div class="swiper-slide"><img src="images/pastry_danish.webp" alt="Danish Pastry" loading="lazy" /></div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Blog posts grid ───────────────────────────────────── -->
+    <section class="blog-main">
+      <div class="container">
+        <div class="blog-grid">
+
+          <article class="blog-card">
+            <div class="blog-card-img"><span>🥐</span></div>
+            <div class="blog-card-body">
+              <span class="blog-tag">Recipes</span>
+              <h2 class="blog-card-title">How to Make the Perfect Butter Croissant at Home</h2>
+              <p class="blog-card-excerpt">Laminated dough, cold butter, and patience — we share the exact technique our pastry chef uses every morning.</p>
+              <div class="blog-card-meta">
+                <span>12 June 2026 &nbsp;·&nbsp; 8 min read</span>
+                <a href="blog-post.html?id=1" class="blog-read-link">Read more →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-img"><span>🍞</span></div>
+            <div class="blog-card-body">
+              <span class="blog-tag">Behind the Scenes</span>
+              <h2 class="blog-card-title">A Day in the Life: 4am at the Stackly Bakehouse</h2>
+              <p class="blog-card-excerpt">While London sleeps, our bakers are already shaping loaves. A peek inside the early-morning magic.</p>
+              <div class="blog-card-meta">
+                <span>5 June 2026 &nbsp;·&nbsp; 5 min read</span>
+                <a href="blog-post.html?id=2" class="blog-read-link">Read more →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-img"><span>🎂</span></div>
+            <div class="blog-card-body">
+              <span class="blog-tag">Tips &amp; Tricks</span>
+              <h2 class="blog-card-title">5 Things to Know Before Ordering a Custom Cake</h2>
+              <p class="blog-card-excerpt">Lead times, tier structures, flavour matching — everything you should ask your baker before you book.</p>
+              <div class="blog-card-meta">
+                <span>28 May 2026 &nbsp;·&nbsp; 6 min read</span>
+                <a href="blog-post.html?id=3" class="blog-read-link">Read more →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-img"><span>🌾</span></div>
+            <div class="blog-card-body">
+              <span class="blog-tag">Sourcing</span>
+              <h2 class="blog-card-title">Why We Only Use Stone-Milled British Flour</h2>
+              <p class="blog-card-excerpt">Our head miller explains why the extra cost and effort translates into flavour you can actually taste.</p>
+              <div class="blog-card-meta">
+                <span>20 May 2026 &nbsp;·&nbsp; 7 min read</span>
+                <a href="blog-post.html?id=4" class="blog-read-link">Read more →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-img"><span>🍪</span></div>
+            <div class="blog-card-body">
+              <span class="blog-tag">Recipes</span>
+              <h2 class="blog-card-title">The Secret to Chewy-in-the-Middle Chocolate Chip Cookies</h2>
+              <p class="blog-card-excerpt">Brown butter, chilled dough, and the right ratio of sugars — a recipe that never fails.</p>
+              <div class="blog-card-meta">
+                <span>14 May 2026 &nbsp;·&nbsp; 5 min read</span>
+                <a href="blog-post.html?id=5" class="blog-read-link">Read more →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-img"><span>🌸</span></div>
+            <div class="blog-card-body">
+              <span class="blog-tag">Seasonal</span>
+              <h2 class="blog-card-title">Summer Specials: What's New on the Menu This July</h2>
+              <p class="blog-card-excerpt">Elderflower tarts, strawberry Danish, and a lemon-basil cake — our summer limited edition line-up is here.</p>
+              <div class="blog-card-meta">
+                <span>8 May 2026 &nbsp;·&nbsp; 4 min read</span>
+                <a href="blog-post.html?id=6" class="blog-read-link">Read more →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Newsletter ─────────────────────────────────────────── -->
+    <section class="blog-newsletter">
+      <div class="container">
+        <h2>Get Fresh <em>Recipes</em> Weekly</h2>
+        <p>New posts, seasonal guides and members-only recipes delivered to your inbox — never spam.</p>
+        <div class="newsletter-row">
+          <input type="email" class="newsletter-input" placeholder="Your email address" id="newsletterEmail" />
+          <button class="newsletter-btn" id="newsletterBtn">Subscribe</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-top container">
+      <div class="footer-brand">
+        <a href="index.html" class="logo logo--light">
+          <img src="images/logo.webp" class="logo-icon" alt="">
+          <div class="logo-text">
+            <span class="logo-name">Stackly</span>
+            <span class="logo-tagline">Artisan Bakery</span>
+          </div>
+        </a>
+        <p>Handcrafted pastries, breads, and cakes made with love and the finest local ingredients since 2012.</p>
+        <div class="social-links">
+          <a href="404.html" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="404.html" class="social-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="404.html" class="social-link" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Allergen Info</a></li>
+          <li><a href="#">Gift Cards</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Our Locations</h4>
+        <div class="footer-loc">
+          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-loc-name">📍 Baker Street</a>
+          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-loc-address">14 Baker Street, London, W1U 3AH</a>
+          <p>📞 <a href="tel:+442071234567">+44 207 123 4567</a></p>
+          <a href="https://www.google.com/maps/search/?q=14+Baker+Street,+London,+W1U+3AH" target="_blank" rel="noopener" class="footer-map-link">Get Directions →</a>
+        </div>
+        <div class="footer-loc">
+          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-loc-name">📍 Shoreditch</a>
+          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-loc-address">82 Curtain Road, London, EC2A 3BS</a>
+          <p>📞 <a href="tel:+442079876543">+44 207 987 6543</a></p>
+          <a href="https://www.google.com/maps/search/?q=82+Curtain+Road,+London,+EC2A+3BS" target="_blank" rel="noopener" class="footer-map-link">Get Directions →</a>
+        </div>
+        <div class="opening-hours">
+          <p><strong>Mon – Fri:</strong> 7am – 7pm</p>
+          <p><strong>Sat – Sun:</strong> 8am – 5pm</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>&copy; 2026 Stackly Artisan Bakery. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Settings</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="quickViewModal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    document.getElementById('newsletterBtn').addEventListener('click', () => {
+      const email = document.getElementById('newsletterEmail').value.trim();
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !re.test(email)) {
+        showToast('Please enter a valid email address.', 'error');
+        return;
+      }
+      showToast('You\'re subscribed! Watch your inbox.', 'success');
+      document.getElementById('newsletterEmail').value = '';
+    });
+
+    new Swiper('.blogHeroSwiper', {
+      slidesPerView: 3,
+      spaceBetween: 16,
+      loop: true,
+      autoplay: { delay: 2600, disableOnInteraction: false },
+      pagination: { el: '.blogHeroSwiper .swiper-pagination', clickable: true },
+      breakpoints: {
+        0:   { slidesPerView: 1.5, spaceBetween: 12 },
+        560: { slidesPerView: 2.2, spaceBetween: 14 },
+        900: { slidesPerView: 3,   spaceBetween: 16 }
+      }
+    });
+  </script>
+</body>
+</html>

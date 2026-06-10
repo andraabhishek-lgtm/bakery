@@ -976,8 +976,18 @@
       setTimeout(() => t.classList.remove('show'), 3200);
     }
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
+
+      /* ── Remember Me: checked FIRST — hard block ── */
+      if (!document.getElementById('rememberMe').checked) {
+        const t = document.getElementById('loginToast');
+        t.textContent = 'Please select Remember Me before continuing.';
+        t.className = 'login-toast error show';
+        setTimeout(function() { t.classList.remove('show'); }, 3200);
+        return false;
+      }
+
       let valid = true;
 
       const email    = emailInput.value.trim();

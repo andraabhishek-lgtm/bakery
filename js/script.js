@@ -10,28 +10,28 @@ const PRODUCTS = [
   // Cakes
   { id: 1,  name: 'Chocolate Dream Cake',    cat: 'cakes',    emoji: '🎂', img: 'images/cake_choc.webp',          price: 42.00, rating: 5.0, reviews: 124, desc: 'Rich dark chocolate sponge, ganache filling, velvety buttercream.', badge: 'bestseller', tags: ['nut-free'] },
   { id: 2,  name: 'Classic Vanilla Gâteau',  cat: 'cakes',    emoji: '🍰', img: 'images/cake_vanilla.webp',       price: 38.00, rating: 4.8, reviews: 87,  desc: 'Light vanilla sponge layered with Madagascar vanilla bean cream.', badge: 'new', tags: [] },
-  { id: 3,  name: 'Red Velvet Delight',      cat: 'cakes',    emoji: '🎂', img: 'images/cake_red.webp',           price: 44.00, rating: 4.9, reviews: 62,  desc: 'Crimson sponge with cream cheese frosting and white chocolate.', badge: 'hot', tags: ['nut-free'] },
-  { id: 4,  name: 'Lemon Drizzle Tart',      cat: 'cakes',    emoji: '🍋', img: 'images/cake_lemon.webp',         price: 32.00, rating: 4.7, reviews: 49,  desc: 'Buttery pastry shell, lemon curd, toasted meringue peaks.', badge: null, tags: ['nut-free'] },
+  { id: 3,  name: 'Red Velvet Delight',      cat: 'cakes',    emoji: '🎂', img: 'images/cupcake_vanilla.webp',    price: 44.00, rating: 4.9, reviews: 62,  desc: 'Crimson sponge with cream cheese frosting and white chocolate.', badge: 'hot', tags: ['nut-free'] },
+  { id: 4,  name: 'Lemon Drizzle Tart',      cat: 'cakes',    emoji: '🍋', img: 'images/lemon-drizzle-bakewell-tart.webp',         price: 32.00, rating: 4.7, reviews: 49,  desc: 'Buttery pastry shell, lemon curd, toasted meringue peaks.', badge: null, tags: ['nut-free'] },
   // Breads
   { id: 5,  name: 'Country Sourdough',       cat: 'breads',   emoji: '🍞', img: 'images/bread_sourdough.webp',    price: 9.50,  rating: 5.0, reviews: 215, desc: '48-hour cold ferment, open crumb, crackling crust.', badge: 'bestseller', tags: ['vegan'] },
   { id: 6,  name: 'Classic Baguette',        cat: 'breads',   emoji: '🥖', img: 'images/bread_baguette.webp',     price: 4.00,  rating: 4.9, reviews: 183, desc: 'Traditional French baguette baked twice daily — crisp outside, chewy inside.', badge: null, tags: ['vegan', 'nut-free'] },
-  { id: 7,  name: 'Seeded Wholemeal Loaf',   cat: 'breads',   emoji: '🍞', img: 'images/bread_wholemeal.webp',    price: 7.50,  rating: 4.7, reviews: 74,  desc: 'Sunflower, pumpkin and sesame seeds in a dense, nutty loaf.', badge: null, tags: ['vegan'] },
-  { id: 8,  name: 'Rosemary Focaccia',       cat: 'breads',   emoji: '🫓', img: 'images/bread_focaccia.webp',     price: 8.00,  rating: 4.8, reviews: 91,  desc: 'Extra virgin olive oil, sea salt flakes and fresh rosemary.', badge: 'new', tags: ['vegan', 'nut-free'] },
+  { id: 7,  name: 'Seeded Wholemeal Loaf',   cat: 'breads',   emoji: '🍞', img: 'images/bread_sourdough.webp',    price: 7.50,  rating: 4.7, reviews: 74,  desc: 'Sunflower, pumpkin and sesame seeds in a dense, nutty loaf.', badge: null, tags: ['vegan'] },
+  { id: 8,  name: 'Rosemary Focaccia',       cat: 'breads',   emoji: '🫓', img: 'images/cake_red.webp',           price: 8.00,  rating: 4.8, reviews: 91,  desc: 'Extra virgin olive oil, sea salt flakes and fresh rosemary.', badge: 'new', tags: ['vegan', 'nut-free'] },
   // Pastries
   { id: 9,  name: 'Butter Croissant',        cat: 'pastries', emoji: '🥐', img: 'images/pastry_croissant.webp',   price: 4.50,  rating: 5.0, reviews: 302, desc: 'Made with AOP Charentes-Poitou butter, 72 laminated layers.', badge: 'bestseller', tags: [] },
   { id: 10, name: 'Chocolate Éclair',        cat: 'pastries', emoji: '🍫', img: 'images/pastry_eclair.webp',      price: 5.50,  rating: 4.9, reviews: 166, desc: 'Choux pastry, crème pâtissière, glossy dark chocolate glaze.', badge: 'hot', tags: ['nut-free'] },
-  { id: 11, name: 'Raspberry Danish',        cat: 'pastries', emoji: '🌸', img: 'images/pastry_danish.webp',      price: 5.00,  rating: 4.8, reviews: 138, desc: 'Flaky Danish dough, vanilla cream, fresh raspberry compote.', badge: null, tags: [] },
+  { id: 11, name: 'Raspberry Danish',        cat: 'pastries', emoji: '🌸', img: 'images/cake_vanilla.webp',       price: 5.00,  rating: 4.8, reviews: 138, desc: 'Flaky Danish dough, vanilla cream, fresh raspberry compote.', badge: null, tags: [] },
   { id: 12, name: 'Mille-Feuille',           cat: 'pastries', emoji: '🧇', img: 'images/pastry_millefeuille.webp',price: 6.50,  rating: 4.9, reviews: 88,  desc: 'Three layers of caramelised puff pastry and diplomat cream.', badge: 'new', tags: [] },
   // Cookies
   { id: 13, name: 'Triple Choc Cookie',      cat: 'cookies',  emoji: '🍪', img: 'images/cookie_choc.webp',        price: 3.50,  rating: 4.9, reviews: 197, desc: 'Dark, milk and white chocolate in a thick, fudgy cookie.', badge: 'bestseller', tags: ['nut-free'] },
   { id: 14, name: 'Oat & Raisin Cookie',     cat: 'cookies',  emoji: '🍪', img: 'images/cookie_oat.webp',         price: 3.00,  rating: 4.6, reviews: 83,  desc: 'Rolled oats, plump raisins, cinnamon and brown butter.', badge: null, tags: ['nut-free'] },
   { id: 15, name: 'Iced Sugar Cookie',       cat: 'cookies',  emoji: '🍭', img: 'images/cookie_sugar.webp',       price: 3.50,  rating: 4.7, reviews: 114, desc: 'Hand-decorated with royal icing. Perfect for gifting.', badge: 'new', tags: ['nut-free'] },
   // Cupcakes
-  { id: 16, name: 'Vanilla Dream Cupcake',   cat: 'cupcakes', emoji: '🧁', img: 'images/cupcake_vanilla.webp',    price: 4.50,  rating: 4.8, reviews: 109, desc: 'Fluffy vanilla sponge with swirled Swiss meringue buttercream.', badge: null, tags: ['nut-free'] },
-  { id: 17, name: 'Salted Caramel Cupcake',  cat: 'cupcakes', emoji: '🧁', img: 'images/cupcake_salted.webp',     price: 5.00,  rating: 4.9, reviews: 142, desc: 'Chocolate sponge, caramel core, salted caramel buttercream.', badge: 'hot', tags: ['nut-free'] },
+  { id: 16, name: 'Vanilla Dream Cupcake',   cat: 'cupcakes', emoji: '🧁', img: 'images/pastry_millefeuille.webp',price: 4.50,  rating: 4.8, reviews: 109, desc: 'Fluffy vanilla sponge with swirled Swiss meringue buttercream.', badge: null, tags: ['nut-free'] },
+  { id: 17, name: 'Salted Caramel Cupcake',  cat: 'cupcakes', emoji: '🧁', img: 'images/pastry_eclair.webp',      price: 5.00,  rating: 4.9, reviews: 142, desc: 'Chocolate sponge, caramel core, salted caramel buttercream.', badge: 'hot', tags: ['nut-free'] },
   { id: 18, name: 'Blueberry Muffin',        cat: 'cupcakes', emoji: '🫐', img: 'images/muffin_blueberry.webp',   price: 3.80,  rating: 4.6, reviews: 66,  desc: 'Bursting with fresh blueberries, lemon zest and streusel top.', badge: null, tags: ['nut-free'] },
   // Extras
-  { id: 19, name: 'Glazed Doughnut',         cat: 'pastries', emoji: '🍩', img: 'images/donut_glazed.webp',       price: 3.50,  rating: 4.7, reviews: 78,  desc: 'Yeast-raised ring donut with pink strawberry glaze and sprinkles.', badge: null, tags: ['nut-free'] },
+  { id: 19, name: 'Glazed Doughnut',         cat: 'pastries', emoji: '🍩', img: 'images/delicious-glazed-donut-on-stone-plate-kitchen-background-copyspace-for-text-free-photo.webp',       price: 3.50,  rating: 4.7, reviews: 78,  desc: 'Yeast-raised ring donut with pink strawberry glaze and sprinkles.', badge: null, tags: ['nut-free'] },
   { id: 20, name: 'Dark Chocolate Brownie',  cat: 'cookies',  emoji: '🟫', img: 'images/brownie.webp',            price: 4.00,  rating: 5.0, reviews: 231, desc: 'Fudgy, dense and intensely chocolatey — best served warm.', badge: 'bestseller', tags: ['nut-free', 'gf'] },
 ];
 
@@ -347,23 +347,64 @@ function initShopPage() {
   const grid = document.getElementById('shopProductsGrid');
   if (!grid) return;
 
+  const ITEMS_PER_PAGE = 8;
+  let currentPage = 1;
   let currentProducts = [...PRODUCTS];
+  let isFirstRender = true;
 
-  function renderShopGrid(products) {
+  function renderPagination(totalPages, current) {
+    const pagination = document.getElementById('pagination');
+    if (!pagination) return;
+    pagination.innerHTML = '';
+    if (totalPages <= 1) { pagination.style.display = 'none'; return; }
+    pagination.style.display = 'flex';
+
+    const prev = document.createElement('button');
+    prev.className = 'page-btn page-btn--prev';
+    prev.textContent = '← Prev';
+    prev.disabled = current === 1;
+    prev.addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderShopGrid(currentProducts, true); } });
+    pagination.appendChild(prev);
+
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'page-btn' + (i === current ? ' active' : '');
+      btn.textContent = i;
+      btn.addEventListener('click', () => { currentPage = i; renderShopGrid(currentProducts, true); });
+      pagination.appendChild(btn);
+    }
+
+    const next = document.createElement('button');
+    next.className = 'page-btn page-btn--next';
+    next.textContent = 'Next →';
+    next.disabled = current === totalPages;
+    next.addEventListener('click', () => { if (currentPage < totalPages) { currentPage++; renderShopGrid(currentProducts, true); } });
+    pagination.appendChild(next);
+  }
+
+  function renderShopGrid(products, scroll) {
     grid.innerHTML = '';
     if (products.length === 0) {
       grid.innerHTML = '<p style="text-align:center;color:var(--text-light);grid-column:1/-1;padding:60px 0;font-size:1rem">No products match your filters. <a href="#" style="color:var(--primary);font-weight:700" id="clearFiltersLink">Clear filters</a></p>';
       document.getElementById('clearFiltersLink')?.addEventListener('click', e => { e.preventDefault(); resetFilters(); });
+      renderPagination(0, 0);
       return;
     }
-    products.forEach(p => grid.appendChild(createProductCard(p)));
+    const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
+    currentPage = Math.min(currentPage, totalPages);
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    products.slice(start, start + ITEMS_PER_PAGE).forEach(p => grid.appendChild(createProductCard(p)));
     const count = document.getElementById('resultsCount');
-    if (count) count.textContent = `Showing ${products.length} product${products.length !== 1 ? 's' : ''}`;
+    if (count) count.textContent = `Showing ${Math.min(start + ITEMS_PER_PAGE, products.length)} of ${products.length} product${products.length !== 1 ? 's' : ''}`;
+    renderPagination(totalPages, currentPage);
+    if (scroll) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function applyFilters() {
-    const checkedCats = Array.from(document.querySelectorAll('input[name="cat"]:checked')).map(i => i.value);
-    const checkedDiets = Array.from(document.querySelectorAll('input[name="diet"]:checked')).map(i => i.value);
+    currentPage = 1;
+    const checkedCats   = Array.from(document.querySelectorAll('input[name="cat"]:checked')).map(i => i.value);
+    const checkedDiets  = Array.from(document.querySelectorAll('input[name="diet"]:checked')).map(i => i.value);
+    const checkedRatings = Array.from(document.querySelectorAll('input[name="rating"]:checked')).map(i => parseFloat(i.value));
     const maxPrice = parseFloat(document.getElementById('priceRange')?.value || 100);
     const sort = document.getElementById('sortSelect')?.value || 'default';
 
@@ -371,6 +412,7 @@ function initShopPage() {
       if (!checkedCats.includes('all') && checkedCats.length && !checkedCats.includes(p.cat)) return false;
       if (checkedDiets.length && !checkedDiets.every(d => p.tags.includes(d))) return false;
       if (p.price > maxPrice) return false;
+      if (checkedRatings.length && p.rating < Math.min(...checkedRatings)) return false;
       return true;
     });
 
@@ -380,7 +422,7 @@ function initShopPage() {
     if (sort === 'newest')     filtered.sort((a, b) => b.id - a.id);
 
     currentProducts = filtered;
-    renderShopGrid(filtered);
+    renderShopGrid(filtered, false);
   }
 
   function resetFilters() {
@@ -389,30 +431,63 @@ function initShopPage() {
     document.querySelectorAll('input[name="rating"]').forEach(el => el.checked = false);
     const range = document.getElementById('priceRange');
     if (range) { range.value = 100; document.getElementById('priceValue').textContent = '$100'; }
+    currentPage = 1;
     applyFilters();
   }
 
-  // Pre-select category from URL ?cat= parameter (e.g. shop.html?cat=cakes)
-  const urlCat = new URLSearchParams(window.location.search).get('cat');
-  if (urlCat && urlCat !== 'all') {
-    const catEl = document.querySelector(`input[name="cat"][value="${urlCat}"]`);
-    if (catEl) {
-      document.querySelectorAll('input[name="cat"]').forEach(el => el.checked = false);
-      catEl.checked = true;
-    }
-  }
-  applyFilters();
+  // "All Items" mutual exclusion with other categories
+  const allCatEl = document.querySelector('input[name="cat"][value="all"]');
+  document.querySelectorAll('input[name="cat"]').forEach(el => {
+    el.addEventListener('change', () => {
+      if (el.value === 'all' && el.checked) {
+        document.querySelectorAll('input[name="cat"]').forEach(c => { if (c !== el) c.checked = false; });
+      } else if (el.value !== 'all' && el.checked && allCatEl) {
+        allCatEl.checked = false;
+      }
+    });
+  });
 
-  // Price slider: update label only — filtering happens on Apply
+  // URL params: search and cat
+  const params = new URLSearchParams(window.location.search);
+  const urlCat    = params.get('cat');
+  const urlSearch = params.get('search');
+
+  if (urlSearch) {
+    const q = urlSearch.toLowerCase();
+    const toolbar = document.querySelector('.shop-toolbar');
+    if (toolbar) {
+      const note = document.createElement('p');
+      note.style.cssText = 'font-size:0.9rem;color:var(--text-mid);margin-bottom:16px;';
+      note.innerHTML = `Search results for "<strong>${urlSearch}</strong>" — <a href="shop.html" style="color:var(--primary);font-weight:700">Clear search</a>`;
+      toolbar.after(note);
+    }
+    currentProducts = PRODUCTS.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.desc.toLowerCase().includes(q) ||
+      p.cat.toLowerCase().includes(q)
+    );
+    const count = document.getElementById('resultsCount');
+    if (count) count.textContent = `Found ${currentProducts.length} result${currentProducts.length !== 1 ? 's' : ''} for "${urlSearch}"`;
+    renderShopGrid(currentProducts, false);
+  } else {
+    if (urlCat && urlCat !== 'all') {
+      const catEl = document.querySelector(`input[name="cat"][value="${urlCat}"]`);
+      if (catEl) {
+        document.querySelectorAll('input[name="cat"]').forEach(el => el.checked = false);
+        catEl.checked = true;
+      }
+    }
+    applyFilters();
+  }
+
+  // Price slider
   const priceRange = document.getElementById('priceRange');
   const priceValue = document.getElementById('priceValue');
   if (priceRange && priceValue) {
-    priceRange.addEventListener('input', () => {
-      priceValue.textContent = `$${priceRange.value}`;
-    });
+    priceRange.addEventListener('input', () => { priceValue.textContent = `$${priceRange.value}`; });
   }
 
-  // Sort select applies immediately (no need to hit Apply for sort)
+  // Sort applies immediately
   document.getElementById('sortSelect')?.addEventListener('change', applyFilters);
 
   // Apply / Clear buttons
@@ -425,16 +500,13 @@ function initShopPage() {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const view = btn.dataset.view;
-      grid.classList.toggle('products-grid--list', view === 'list');
+      grid.classList.toggle('products-grid--list', btn.dataset.view === 'list');
     });
   });
 
   // Filter sidebar mobile toggle
-  const filterToggle = document.getElementById('filterToggle');
-  const filtersSidebar = document.getElementById('filtersSidebar');
-  filterToggle?.addEventListener('click', () => {
-    filtersSidebar?.classList.toggle('open');
+  document.getElementById('filterToggle')?.addEventListener('click', () => {
+    document.getElementById('filtersSidebar')?.classList.toggle('open');
   });
 }
 
@@ -507,6 +579,24 @@ function initSearch() {
       const isOpen = bar.classList.toggle('open');
       if (isOpen) setTimeout(() => document.getElementById('searchInput')?.focus(), 50);
     });
+  });
+
+  function performSearch() {
+    const input = document.getElementById('searchInput');
+    const query = (input?.value || '').trim();
+    if (!query) {
+      showToast('Please enter a search term.', 'error');
+      return;
+    }
+    window.location.href = 'shop.html?search=' + encodeURIComponent(query);
+  }
+
+  document.querySelectorAll('.search-submit').forEach(btn => {
+    btn.addEventListener('click', performSearch);
+  });
+
+  document.querySelectorAll('#searchInput').forEach(input => {
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') performSearch(); });
   });
 }
 

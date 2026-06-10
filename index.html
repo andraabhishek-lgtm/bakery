@@ -7,7 +7,42 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Hero background swiper ──────────────────────────────── */
+    .hero-swiper-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .heroHomeBgSwiper {
+      width: 100%;
+      height: 100%;
+    }
+    .heroHomeBgSwiper .swiper-slide {
+      overflow: hidden;
+    }
+    .heroHomeBgSwiper .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.11;
+      filter: blur(3px);
+      transform: scale(1.08);
+      transform-origin: center;
+    }
+    .hero-swiper-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 248, 238, 0.68);
+      z-index: 1;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -29,7 +64,6 @@
           <img src="images/logo.webp" class="logo-icon" alt="">
           <div class="logo-text">
             <span class="logo-name">Stackly</span>
-            <span class="logo-tagline">Artisan Bakery</span>
           </div>
         </a>
         <div class="logo-badge">
@@ -53,6 +87,7 @@
           </div>
         </div>
         <a href="our-story.html" class="nav-link">Our Story</a>
+        <a href="blog.html" class="nav-link">Blog</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
 
@@ -112,6 +147,22 @@
 
     <!-- Hero Section -->
     <section class="hero" style="background-image:url('images/hero_bg.webp');background-size:cover;background-position:center;background-blend-mode:multiply">
+      <!-- Background swiper — decorative only, not interactive -->
+      <div class="hero-swiper-bg">
+        <div class="swiper heroHomeBgSwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="images/pastry_croissant.webp" alt="" loading="lazy" aria-hidden="true" /></div>
+            <div class="swiper-slide"><img src="images/cake_choc.webp" alt="" loading="lazy" aria-hidden="true" /></div>
+            <div class="swiper-slide"><img src="images/bread_sourdough.webp" alt="" loading="lazy" aria-hidden="true" /></div>
+            <div class="swiper-slide"><img src="images/muffin_blueberry.webp" alt="" loading="lazy" aria-hidden="true" /></div>
+            <div class="swiper-slide"><img src="images/cookie_choc.webp" alt="" loading="lazy" aria-hidden="true" /></div>
+            <div class="swiper-slide"><img src="images/donut_glazed.webp" alt="" loading="lazy" aria-hidden="true" /></div>
+            <div class="swiper-slide"><img src="images/brownie.webp" alt="" loading="lazy" aria-hidden="true" /></div>
+            <div class="swiper-slide"><img src="images/pastry_danish.webp" alt="" loading="lazy" aria-hidden="true" /></div>
+          </div>
+        </div>
+        <div class="hero-swiper-overlay"></div>
+      </div>
       <div class="hero-bg">
         <div class="hero-shape hero-shape-1"></div>
         <div class="hero-shape hero-shape-2"></div>
@@ -376,7 +427,6 @@
           <img src="images/logo.webp" class="logo-icon" alt="">
           <div class="logo-text">
             <span class="logo-name">Stackly</span>
-            <span class="logo-tagline">Artisan Bakery</span>
           </div>
         </a>
         <p>Handcrafted pastries, breads, and cakes made with love and the finest local ingredients since 2012.</p>
@@ -399,7 +449,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="shop.html">Shop</a></li>
           <li><a href="our-story.html">Our Story</a></li>
-          <li><a href="#">Blog</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
@@ -457,6 +507,18 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="js/script.js"></script>
+  <script>
+    new Swiper('.heroHomeBgSwiper', {
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
+      loop: true,
+      speed: 2000,
+      autoplay: { delay: 3500, disableOnInteraction: false },
+      allowTouchMove: false,
+      a11y: false
+    });
+  </script>
 </body>
 </html>
